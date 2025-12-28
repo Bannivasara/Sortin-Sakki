@@ -12,6 +12,7 @@
 	width: 100%;
 	border-radius: 0 0 20px 20px;
 }
+
 .btn {
   display: block;
   width: 100%;
@@ -43,6 +44,7 @@
     text-align: center;
     margin-top: 40px;
 	font-size: 60px;
+	font-family: Open Sans, sans-serif;
 }
 
 .saate {
@@ -90,4 +92,5 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
+
 }
