@@ -1,0 +1,104 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+.banner {
+	background-image: url('banner.svg');
+	background-size: cover;
+	background-position: center;
+	height: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	border-radius: 0 0 20px 20px;
+}
+.btn {
+  display: inline-flex;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+  padding: 17px 26px;
+  font-size: 23px;
+  font-family: Open Sans, sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+  background: #FFB74D;
+  border-radius: 8px;
+  border: none;
+  min-width: 140px;
+  min-height: 44px;
+  gap: 10px;
+}
+
+.btn:hover { transform: scale(1.1); }
+
+.sorola {
+    color: red;
+    text-align: center;
+    margin-top: 40px;
+	font-size: 60px;
+	font-family: Open Sans, sans-serif;
+}
+
+.saate {
+    color: black;
+    text-align: center;
+    margin-top: 60px;
+	font-size: 30px;
+	font-family: Open Sans, sans-serif;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.palstatekstit {
+    color: black;
+    text-align: center;
+	margin-top: 0;
+	font-size: 30px;
+	font-family: Open Sans, sans-serif;
+	margin-bottom: 20px;
+	min-height: 3em;
+}
+
+.paasivu {
+	display: flex;
+	justify-content: center;
+	gap: 80px;
+	padding: 20px;
+	flex-wrap: wrap;
+}
+
+.palsta2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 50px;
+	width: 500px;
+	border-width: 3px;
+	border-style: solid;
+	border-radius: 36px;
+	border-color: #FF9A33;
+}
+
+.lyhennin {
+	width: 100%;
+	max-width: 500px;
+	height: 50px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+}
+
+body {
+    background-image: url('waves.svg');
+    background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-color:: #E0DDDA;
+}
