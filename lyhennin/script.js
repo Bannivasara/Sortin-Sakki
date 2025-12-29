@@ -3,68 +3,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const tulosAlue = document.getElementById('tulos-alue');
     const urlInput = document.getElementById('lyhennetty-url');
     const kopioiBtn = document.getElementById('kopioi-btn');
-    const uusiBtn = document.getElementById('uusi-linkki-btn');
-    const kopioituViesti = document.getElementById('kopioitu-viesti');
+    const uusiBtn = document.getElementById('uusi-btn');
 
-    // 1. Lataa tilastot heti
-    async function lataaTilastot() {
+    // Funktio statsien hakuun
+    async function paivitaStatsit() {
         try {
-            const vastaus = await fetch('https://soro.la/get-stats');
-            const tiedot = await vastaus.json();
-            document.getElementById('stat-linkit').innerText = tiedot.created;
-            document.getElementById('stat-klikit').innerText = tiedot.clicks;
-        } catch (e) { console.log("Stats error"); }
+            const res = await fetch('https://soro.la/get-stats');
+            const data = await res.json();
+            document.getElementById('stat-linkit').innerText = data.created;
+            document.getElementById('stat-klikit').innerText = data.clicks;
+        } catch (e) {}
     }
-    lataaTilastot();
+    paivitaStatsit();
 
-    // 2. Linkin luominen
+    // Lähetys
     lomake.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const nappi = lomake.querySelector('button');
-        nappi.innerText = "Käsitellään...";
+        const btn = lomake.querySelector('button');
+        btn.innerText = "Hetki...";
 
         try {
-            const vastaus = await fetch('https://soro.la', {
+            const res = await fetch('https://soro.la', {
                 method: 'POST',
                 body: new FormData(lomake)
             });
 
-            if (vastaus.ok) {
-                const id = await vastaus.text();
-                const lyhytUrl = "soro.la/" + id;
-
-                // Päivitä input ja näytä tulos, piilota lomake
-                urlInput.value = lyhytUrl;
+            if (res.ok) {
+                const id = await res.text();
+                // Piilota lomake ja näytä tulos
                 lomake.style.display = 'none';
                 tulosAlue.style.display = 'block';
-                lataaTilastot(); // Päivitä numerot heti
+                urlInput.value = "soro.la/" + id;
+                paivitaStatsit();
             }
-        } catch (e) {
-            alert("Yhteys katkesi.");
-            nappi.innerText = "Lyhennä linkki";
-        }
+        } catch (e) { alert("Virhe!"); }
+        btn.innerText = "Lyhennä linkki";
     });
 
-    // 3. Kopiointi-nappi
+    // KOPIOI-NAPPI
     kopioiBtn.addEventListener('click', () => {
-        urlInput.select(); // Valitsee tekstin
-        urlInput.setSelectionRange(0, 99999); // Mobiililaitteille
-        
-        navigator.clipboard.writeText(urlInput.value).then(() => {
-            kopioituViesti.style.display = 'block';
-            kopioiBtn.innerText = "Kopioitu!";
-            setTimeout(() => {
-                kopioituViesti.style.display = 'none';
-                kopioiBtn.innerText = "Kopioi linkki";
-            }, 2000);
-        });
+        urlInput.select();
+        navigator.clipboard.writeText(urlInput.value);
+        kopioiBtn.innerText = "Kopioitu!";
+        kopioiBtn.style.background = "#2e7d32";
+        setTimeout(() => {
+            kopioiBtn.innerText = "Kopioi";
+            kopioiBtn.style.background = "#4CAF50";
+        }, 2000);
     });
 
-    // 4. Tee uusi linkki -nappi (palauttaa lomakkeen)
+    // UUSI-NAPPI
     uusiBtn.addEventListener('click', () => {
         tulosAlue.style.display = 'none';
         lomake.style.display = 'block';
         lomake.reset();
-        lomake.querySelector('button').innerText = "Lyhennä linkki";
     });
 });
