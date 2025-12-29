@@ -5,22 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const kopioiBtn = document.getElementById('kopioi-btn');
     const uusiBtn = document.getElementById('uusi-btn');
 
-    // Funktio statsien hakuun
-    async function paivitaStatsit() {
-        try {
-            const res = await fetch('https://soro.la/get-stats');
-            const data = await res.json();
-            document.getElementById('stat-linkit').innerText = data.created;
-            document.getElementById('stat-klikit').innerText = data.clicks;
-        } catch (e) {}
-    }
-    paivitaStatsit();
-
-    // Lähetys
+    // 1. Linkin luominen
     lomake.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = lomake.querySelector('button');
-        btn.innerText = "Hetki...";
+        btn.innerText = "Käsitellään...";
 
         try {
             const res = await fetch('https://soro.la', {
@@ -30,29 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (res.ok) {
                 const id = await res.text();
-                // Piilota lomake ja näytä tulos
-                lomake.style.display = 'none';
-                tulosAlue.style.display = 'block';
+                lomake.style.display = 'none'; // Piilota vanha
+                tulosAlue.style.display = 'block'; // Näytä uusi
                 urlInput.value = "soro.la/" + id;
-                paivitaStatsit();
             }
         } catch (e) { alert("Virhe!"); }
         btn.innerText = "Lyhennä linkki";
     });
 
-    // KOPIOI-NAPPI
+    // 2. Kopiointi
     kopioiBtn.addEventListener('click', () => {
         urlInput.select();
         navigator.clipboard.writeText(urlInput.value);
+        const alkupTeksti = kopioiBtn.innerText;
         kopioiBtn.innerText = "Kopioitu!";
-        kopioiBtn.style.background = "#2e7d32";
-        setTimeout(() => {
-            kopioiBtn.innerText = "Kopioi";
-            kopioiBtn.style.background = "#4CAF50";
-        }, 2000);
+        setTimeout(() => { kopioiBtn.innerText = alkupTeksti; }, 2000);
     });
 
-    // UUSI-NAPPI
+    // 3. Tee uusi
     uusiBtn.addEventListener('click', () => {
         tulosAlue.style.display = 'none';
         lomake.style.display = 'block';
