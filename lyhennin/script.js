@@ -1,77 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
     const lomake = document.getElementById('lyhennin-lomake');
-    const linkitElem = document.getElementById('stat-linkit');
-    const klikitElem = document.getElementById('stat-klikit');
-    
-    // Tulosalueen elementit
     const tulosAlue = document.getElementById('tulos-alue');
     const urlInput = document.getElementById('lyhennetty-url');
     const kopioiBtn = document.getElementById('kopioi-btn');
+    const uusiBtn = document.getElementById('uusi-linkki-btn');
     const kopioituViesti = document.getElementById('kopioitu-viesti');
 
-    // 1. Funktio tilastojen lataamiseen soro.la-workerista
+    // 1. Lataa tilastot heti
     async function lataaTilastot() {
         try {
             const vastaus = await fetch('https://soro.la/get-stats');
-            if (vastaus.ok) {
-                const tiedot = await vastaus.json();
-                if (linkitElem) linkitElem.innerText = tiedot.created;
-                if (klikitElem) klikitElem.innerText = tiedot.clicks;
-            }
-        } catch (e) {
-            console.error("Tilastoja ei saatu haettua soro.la:sta");
-        }
+            const tiedot = await vastaus.json();
+            document.getElementById('stat-linkit').innerText = tiedot.created;
+            document.getElementById('stat-klikit').innerText = tiedot.clicks;
+        } catch (e) { console.log("Stats error"); }
     }
-
-    // Ladataan tilastot heti kun sivu avataan
     lataaTilastot();
 
-    // 2. Lomakkeen lähetys (Linkin luominen)
-    if (lomake) {
-        lomake.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = lomake.querySelector('button');
-            const alkuperainenTeksti = btn.innerText;
-            btn.innerText = "Hetki...";
+    // 2. Linkin luominen
+    lomake.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nappi = lomake.querySelector('button');
+        nappi.innerText = "Käsitellään...";
 
-            try {
-                const vastaus = await fetch('https://soro.la', {
-                    method: 'POST',
-                    body: new FormData(lomake)
-                });
+        try {
+            const vastaus = await fetch('https://soro.la', {
+                method: 'POST',
+                body: new FormData(lomake)
+            });
 
-                if (vastaus.ok) {
-                    const id = await vastaus.text();
-                    const lyhytUrl = "soro.la/" + id;
+            if (vastaus.ok) {
+                const id = await vastaus.text();
+                const lyhytUrl = "soro.la/" + id;
 
-                    // Näytetään tuloslaatikko ja asetetaan linkki siihen
-                    urlInput.value = lyhytUrl;
-                    tulosAlue.style.display = 'block';
-                    
-                    // Tyhjennetään lomake uutta käyttöä varten
-                    lomake.reset(); 
-                    
-                    // Päivitetään tilastot (koska uusi linkki luotiin)
-                    lataaTilastot();
-
-                    // 3. Kopiointitoiminto
-                    kopioiBtn.onclick = () => {
-                        navigator.clipboard.writeText(lyhytUrl).then(() => {
-                            kopioituViesti.style.display = 'block';
-                            // Piilotetaan "Kopioitu!"-teksti 2 sekunnin kuluttua
-                            setTimeout(() => { 
-                                kopioituViesti.style.display = 'none'; 
-                            }, 2000);
-                        });
-                    };
-                } else {
-                    alert("Worker hylkäsi pyynnön. Tarkista URL.");
-                }
-            } catch (e) {
-                alert("Yhteysvirhe soro.la-moottoriin.");
-            } finally {
-                btn.innerText = alkuperainenTeksti;
+                // Päivitä input ja näytä tulos, piilota lomake
+                urlInput.value = lyhytUrl;
+                lomake.style.display = 'none';
+                tulosAlue.style.display = 'block';
+                lataaTilastot(); // Päivitä numerot heti
             }
+        } catch (e) {
+            alert("Yhteys katkesi.");
+            nappi.innerText = "Lyhennä linkki";
+        }
+    });
+
+    // 3. Kopiointi-nappi
+    kopioiBtn.addEventListener('click', () => {
+        urlInput.select(); // Valitsee tekstin
+        urlInput.setSelectionRange(0, 99999); // Mobiililaitteille
+        
+        navigator.clipboard.writeText(urlInput.value).then(() => {
+            kopioituViesti.style.display = 'block';
+            kopioiBtn.innerText = "Kopioitu!";
+            setTimeout(() => {
+                kopioituViesti.style.display = 'none';
+                kopioiBtn.innerText = "Kopioi linkki";
+            }, 2000);
         });
-    }
+    });
+
+    // 4. Tee uusi linkki -nappi (palauttaa lomakkeen)
+    uusiBtn.addEventListener('click', () => {
+        tulosAlue.style.display = 'none';
+        lomake.style.display = 'block';
+        lomake.reset();
+        lomake.querySelector('button').innerText = "Lyhennä linkki";
+    });
 });
