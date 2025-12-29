@@ -13,23 +13,23 @@
 	</div>
 		<p class="saate">Jos sinulla on jokin todella pitkä linkki, voit kopioida sen tähän, ja tehdä siitä lyhyemmän.</p>
 		<div class="paasivu">	
-			<div class="palsta2">
+			<div id="lyhennin-container">
 				<form id="lyhennin-lomake">
-					<input class="lyhennin" type="text" name="url" placeholder="Laita pitkä linkki tähän..." required>
-					<button type="submit" class="btn _pop">Lyhennä linkki</button>
+					<input class="lyhennin" type="text" name="url" placeholder="https://" required>
+        			<button type="submit" class="btn _pop">Lyhennä linkki</button>
 				</form>
 			
-				<div id="tulos-alue" style="display: none; margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; text-align: center;">
-					<p style="margin-bottom: 12px; font-weight: bold; color: white;">Linkkisi on valmis!</p>
-					<div style="display: flex; gap: 10px; flex-direction: column; align-items: center;">
-						<input type="text" id="lyhennetty-url" readonly 
-							style="padding: 12px; border-radius: 6px; border: none; width: 100%; max-width: 300px; background: #eee; color: #333; text-align: center; font-weight: bold;">
-						<div style="display: flex; gap: 10px;">
+				<div id="tulos-alue" style="display: none; margin-top: 20px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 15px; border: 2px solid #ffa500;">
+					<p style="color: white; margin-bottom: 10px;">Linkki on valmis!</p>
+					<input type="text" id="lyhennetty-url" readonly style="width: 100%; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px;">
+					<div style="display: flex; gap: 10px; justify-content: center;">
+						<button id="kopioi-btn" class="btn" style="background: #4CAF50; min-width: 100px;">Kopioi</button>
+						<button id="uusi-btn" class="btn" style="background: #666; min-width: 100px;">Uusi</button>
 							<button id="kopioi-btn" class="btn" type="button" style="background: #4CAF50;">Kopioi linkki</button>
 							<button id="uusi-linkki-btn" class="btn" type="button" style="background: #666;">Tee uusi</button>
 						</div>
 					</div>
-					<p id="kopioitu-viesti" style="font-size: 0.9em; color: #4CAF50; margin-top: 10px; display: none; font-weight: bold;">✓ Kopioitu leikepöydälle!</p>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -38,3 +38,4 @@
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
+
