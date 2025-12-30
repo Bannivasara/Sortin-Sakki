@@ -29,6 +29,7 @@
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffee66;
 	width: 100%;
+	min-width: 100px;
 }
 
 .nappula:hover {
@@ -57,6 +58,7 @@
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
 	width: 100%;
+	min-width: 100px;
 }
 .nappula1:hover {
 	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
@@ -122,6 +124,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
