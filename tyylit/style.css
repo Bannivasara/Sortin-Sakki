@@ -111,10 +111,13 @@
 
 .palsta {
     display: flex;
+	flex: 1;
     flex-direction: column;
     align-items: center;
 	height: 100%;
 	width: 300px;
+	max-width: 400px;
+	min-height: 450px;
     gap: 15px;
     padding: 50px;
 	border-width: 3px;
@@ -172,6 +175,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
