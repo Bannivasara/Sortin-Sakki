@@ -12,6 +12,7 @@
 	width: 100%;
 	border-radius: 0 0 20px 20px;
 }
+
 .nappula {
 	box-shadow: 0px 0px 0px 0px #fff6af;
 	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
@@ -27,10 +28,15 @@
 	padding:15px 72px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffee66;
+	width: 170px;
+	text-align: center;
+	justify-content: space-around;
 }
+
 .nappula:hover {
 	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
 	background-color:#ffab23;
+	
 }
 .nappula:active {
 	position:relative;
@@ -52,18 +58,18 @@
 	padding:15px 72px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
+	width: 170px;
+	text-align: center;
+	justify-content: space-around;
 }
-
 .nappula1:hover {
 	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
 	background-color:#5cbf2a;
 }
-
 .nappula1:active {
 	position:relative;
 	top:1px;
 }
-
 
 .sorola {
     color: red;
@@ -156,12 +162,3 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
-
-
-
-
-
-
-
-
-
