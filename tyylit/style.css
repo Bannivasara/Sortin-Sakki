@@ -118,6 +118,34 @@
 	border-color: #FF9A33;
 }
 
+#lyhennetty-url {
+    display: block !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    margin: 0 auto 20px auto !important;
+    box-sizing: border-box !important;
+    font-family: 'Open Sans', sans-serif !important;
+    text-align: center !important;
+	font-size: 1.5rem !important;
+    padding: 18px 10px !important;
+    height: auto !important;
+    line-height: 1.2 !important;
+}
+
+#tulos-alue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lyhennin {
+	width: 100%;
+	max-width: 500px;
+	height: 50px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+}
+
 body {
     background-image: url('waves.svg');
     background-size: cover;
@@ -126,6 +154,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
