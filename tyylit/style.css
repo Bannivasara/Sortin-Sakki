@@ -100,6 +100,7 @@
 
 .paasivu {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -112,7 +113,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-	width: 100%;
+	width: 50%;
     gap: 15px;
     padding: 50px;
 	border-width: 3px;
@@ -157,6 +158,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
