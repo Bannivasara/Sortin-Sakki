@@ -144,12 +144,6 @@
 	height: 50px;
 	margin-bottom: 20px;
 	border-radius: 8px;
-}
-
-#lyhennin-lomake {
-	width: 100%;
-	max-width: 500px;
-	height: 50px;
 	align-items: center;
 }
 
@@ -161,6 +155,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
