@@ -110,15 +110,18 @@
 	height: 50px;
 	margin-bottom: 20px;
 	border-radius: 8px;
-	align-items: center;
 }
 
-.input:invalid {
+.lyhennin:invalid {
   border: 2px solid #ff4444; /* Punainen reuna, jos linkki on väärin */
 }
 
-.input:valid {
+.lyhennin:valid {
   border: 2px solid #44ff44; /* Vihreä reuna, kun linkki on kunnossa! */
+}
+
+.lyhennin-lomake {
+	align-items: center;
 }
 
 body {
@@ -128,6 +131,7 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
 
 
