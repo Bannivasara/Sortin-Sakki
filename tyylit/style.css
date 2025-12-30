@@ -28,8 +28,9 @@
 	padding:15px 0px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffee66;
-	width: 170px;
+	width: 250px;
 	box-sizing: border-box;
+	text-align: center;
 }
 
 .nappula:hover {
@@ -57,8 +58,9 @@
 	padding:15px 0px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
-	width: 170px;
+	width: 250px;
 	box-sizing: border-box;
+	text-align: center;
 }
 .nappula1:hover {
 	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
@@ -124,6 +126,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
