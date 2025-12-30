@@ -105,15 +105,6 @@
 	align-items: center;
 }
 
-.palsta2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 50px;
-	width: 500px;
-}
-
 #lyhennetty-url {
     display: block !important;
     width: 100% !important;
@@ -161,6 +152,7 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
 
 
