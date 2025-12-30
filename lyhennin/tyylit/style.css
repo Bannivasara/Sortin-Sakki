@@ -81,10 +81,6 @@
     gap: 15px;
     padding: 50px;
 	width: 500px;
-	border-width: 3px;
-	border-style: solid;
-	border-radius: 36px;
-	border-color: #FF9A33;
 }
 
 #lyhennetty-url {
@@ -118,5 +114,3 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
-
-
