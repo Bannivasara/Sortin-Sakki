@@ -74,7 +74,7 @@
 	flex-wrap: wrap;
 }
 
-.palsta2 {
+#palsta2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,4 +101,5 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
+
 }
