@@ -101,6 +101,8 @@
 .paasivu {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	width: 100%;
 	gap: 80px;
 	padding: 20px;
 	flex-wrap: wrap;
@@ -110,6 +112,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+	width: 100%;
     gap: 15px;
     padding: 50px;
 	border-width: 3px;
@@ -144,7 +147,6 @@
 	height: 50px;
 	margin-bottom: 20px;
 	border-radius: 8px;
-	align-items: center;
 }
 
 body {
@@ -155,6 +157,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
