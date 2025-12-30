@@ -87,6 +87,22 @@
 	border-color: #FF9A33;
 }
 
+#lyhennetty-url {
+    display: block !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    margin: 0 auto 20px auto !important;
+    box-sizing: border-box !important;
+    font-family: 'Open Sans', sans-serif !important;
+    text-align: center !important;
+}
+
+#tulos-alue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .lyhennin {
 	width: 100%;
 	max-width: 500px;
@@ -101,6 +117,6 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
-
 }
+
 
