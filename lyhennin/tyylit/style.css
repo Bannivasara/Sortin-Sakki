@@ -91,8 +91,10 @@
     box-sizing: border-box !important;
     font-family: 'Open Sans', sans-serif !important;
     text-align: center !important;
-	padding: 15px !important;
-    font-size: 1.2rem !important;
+	font-size: 1.5rem !important;
+    padding: 18px 10px !important;
+    height: auto !important;
+    line-height: 1.2 !important;
 }
 
 #tulos-alue {
@@ -116,4 +118,5 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
