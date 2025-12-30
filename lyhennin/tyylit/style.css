@@ -111,11 +111,11 @@
 	border-radius: 8px;
 }
 
-input:invalid {
+.input:invalid {
   border: 2px solid #ff4444; /* Punainen reuna, jos linkki on väärin */
 }
 
-input:valid {
+.input:valid {
   border: 2px solid #44ff44; /* Vihreä reuna, kun linkki on kunnossa! */
 }
 
@@ -126,6 +126,7 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
 
 
