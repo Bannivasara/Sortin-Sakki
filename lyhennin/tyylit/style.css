@@ -111,6 +111,14 @@
 	border-radius: 8px;
 }
 
+input:invalid {
+  border: 2px solid #ff4444; /* Punainen reuna, jos linkki on väärin */
+}
+
+input:valid {
+  border: 2px solid #44ff44; /* Vihreä reuna, kun linkki on kunnossa! */
+}
+
 body {
     background-image: url('waves.svg');
     background-size: cover;
@@ -118,5 +126,6 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
 
