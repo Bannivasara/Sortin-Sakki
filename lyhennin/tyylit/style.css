@@ -35,6 +35,7 @@
   min-width: 140px;
   min-height: 44px;
   gap: 10px;
+  margin: 10 auto 10 auto
 }
 
 .btn:hover { transform: scale(1.1); }
@@ -126,6 +127,7 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
 
 
