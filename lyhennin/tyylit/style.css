@@ -35,7 +35,7 @@
   min-width: 140px;
   min-height: 44px;
   gap: 10px;
-  margin: 10 auto 10 auto
+  margin: 10 auto 10 auto;
 }
 
 .btn:hover { transform: scale(1.1); }
@@ -110,6 +110,7 @@
 	height: 50px;
 	margin-bottom: 20px;
 	border-radius: 8px;
+	align-items: center;
 }
 
 .input:invalid {
@@ -127,6 +128,7 @@ body {
 	background-attachment: fixed;
 	background-color:: #E0DDDA;
 }
+
 
 
 
