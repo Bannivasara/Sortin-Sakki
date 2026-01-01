@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sorolan QR-koodit</title>
+  <link rel="stylesheet" type="text/css" href="../tyylit/style.css">
+  <link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
+  
+</head>
+<body>
+  <div class="banner">
+		   <h1 class="sorola">Sorolan QR-luoja</h1>
+	  </div>
+		 <div class="paasivu" style="display: flex; flex-direction: row;">
+		  <div class="palsta" style="width: auto; justify-content: top;">
+    <h2 class="palstatekstit">Luo QR-koodi</h2>
+		  		   <a href=../ class=nappula1 style="margin-bottom: 20px;">Takaisin pääsivulle</a>
+    <select id="qr-tyyppi" class="lyhennin" style="padding: 15px; width: 300px; margin-bottom: 15px;">
+    		   <option value="text">Teksti</option>
+        <option value="url">Nettilinkki</option>
+        <option value="wifi">Wi-Fi verkko</option>
+        <option value="vcard">Käyntikortti</option>
+    </select>
+
+    <div id="kentat">
+        <input type="text" id="syote1" class="qr" placeholder="Kirjoita teksti">
+        <input type="text" id="syote2" class="qr" style="display: none;">
+    		   <input type="text" id="syote3" class="qr" style="display: none;">
+    </div>
+
+    <button id="generoi-btn" class="nappula" style="margin-top: 20px;">Generoi QR-koodi</button>
+		  </div>
+    <div id="qr-tulos" style="margin-top: 20px; display: none;">
+        <img id="qr-kuva" src="" alt="QR-koodi" style="border: 10px solid white; border-radius: 10px; max-width: 200px;">
+        <p style="color: white; font-size: 0.8rem; margin-top: 10px;">Skannaa koodi puhelimella</p>
+    </div>
+   </div>
+  <script src="script.js"></script>
+	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
