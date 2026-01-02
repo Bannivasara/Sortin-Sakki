@@ -1,9 +1,7 @@
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then(reg => console.log('Service Worker rekisteröity!', reg))
-      .catch(err => console.log('Rekisteröinti epäonnistui:', err));
-  });
+  navigator.serviceWorker.register('sw.js') // Ei '/sw.js' vaan 'sw.js'
+    .then(reg => console.log('SW rekisteröity!'))
+    .catch(err => console.log('SW virhe:', err));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
