@@ -7,15 +7,18 @@
   <link rel="stylesheet" type="text/css" href="../tyylit/style.css">
   <link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
   <link rel="manifest" href="manifest.json">
+  <meta name="description" content="Luo QR-koodeja jopa offline-tilassa.">
+  <meta name="keywords" content="QR-koodi, QR-Code">
 </head>
 <body>
-  <div class="banner">
-		   <h1 class="sorola">Sorolan QR-luoja</h1>
-	  </div>
-		 <div class="paasivu">
-		  <div class="palsta" style="width: auto; justify-content: top;">
+	<div class="banner">
+		<h1 class="sorola">Sorolan QR-luoja</h1>
+		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
+	</div>
+		<div class="paasivu">
+		<div class="palsta" style="width: auto; justify-content: top;">
     <h2 class="palstatekstit">Luo QR-koodi</h2>
-		  		   <a href=../ class=nappula1 style="margin-bottom: 20px;">Takaisin pääsivulle</a>
+		 <a href=../ class=nappula1 style="margin-bottom: 20px;">Takaisin pääsivulle</a>
     <select id="qr-tyyppi" class="lyhennin" style="padding: 15px; width: 300px; margin-bottom: 15px;">
 		<option value="text">Teksti</option>
         <option value="url">Nettilinkki</option>
@@ -36,6 +39,7 @@
 		<button id="lataa-btn" class="nappula" style="margin-top: 10px; display: none;">Lataa kuvana</button>
 	</div>
    </div>
+  <script src="../tyylit/teemat.js"></script>
   <script src="qrcode.min.js"></script>
   <script src="script.js"></script>
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->

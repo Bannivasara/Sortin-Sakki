@@ -130,7 +130,7 @@
 	border-width: 3px;
 	border-style: solid;
 	border-radius: 36px;
-	border-color: #FF9A33;
+	border-color:#eb2a2a;
 	box-sizing: border-box;
 }
 
@@ -155,12 +155,10 @@
     align-items: center;
 }
 
-.lyhennin {
+#lyhennin-lomake {
 	display: flex;
     flex-direction: column;
 	align-items: center;
-	justify-content: flex-start;
-	margin: 0 auto;
 	width: 350px;
 	gap: 15px;
 	max-width: 400px;
@@ -188,28 +186,38 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	background-color: #E0DDDA;
-
 }
 
+body {
+    background-image: url('waves.svg');
+    background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-color: #E0DDDA;
+}
 
+body.yoteema {
+    background-image: url('wavesnight.svg');
+    background-color: #0b1120;
+    color: #ffffff;
+}	
 
+.yoteema .palsta, .yoteema .lyhennin {
+    background-color: #1e1e1e;
+    border-color: #ffab23;
+    color: #ffffff;
+}
 
+.yoteema .saate, .yoteema .palstatekstit {
+    color: #ffffff;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#teeman-vaihto {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: auto;
+    padding: 10px 15px;
+    font-size: 14px;
+    z-index: 1000;
+}

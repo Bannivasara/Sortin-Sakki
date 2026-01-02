@@ -2,7 +2,7 @@
 <html lang="fi">
 <head>
 	<meta charset="UTF-8">
-	<title>Sortin Sakki - Sorolan Linkkilyhennin</title>
+	<title>Sorolan Sakki - Sorolan Linkkilyhennin</title>
 	<link rel="stylesheet" type="text/css" href="../tyylit/style.css">
 	<link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
 	<meta name="description" content="Sorolan linkkilyhennin.">
@@ -10,30 +10,35 @@
 </head>
 <body>
 	<div class="banner">
-		<h1 class="sorola">Sortin Sakki</h1>
+		<h1 class="sorola">Sorolan Linkkilyhentäjä</h1>
+		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
 	</div>
 		<p class="saate">Jos sinulla on jokin todella pitkä linkki, voit kopioida sen tähän, ja tehdä siitä lyhyemmän.</p>
 		<div class="paasivu">
-			<form id="lyhennin-lomake" class="lyhennin">
-				<input type="url" style="border-radius: 15px; padding: 15px; width: 100%;" name="url" placeholder="Syötä täysi URL eli sisältäen http(s)://" pattern="https?://.+" title="Linkin täytyy alkaa http:// tai https://" required>
-				<button type="submit" class="nappula">Lyhennä linkki</button>
-				<a href="../" class="nappula1">Takaisin pääsivulle</a>
-			</form>
-			<div id="tulos-alue" style="display: none; margin: 20px auto 0 auto; width: 400px; max-width: 500px; height: 100%; padding: 25px; background: rgba(0,0,0,0.3); border-radius: 15px; border: 2px solid #ffa500; text-align: center; box-sizing: border-box;">
-				
-				<p style="color: white; margin-bottom: 15px; font-weight: bold; font-size: 1.2rem; font-family: 'Open Sans', sans-serif;">Linkki on valmis!</p>
-				
-				<input type="text" id="lyhennetty-url" readonly>
-				
-				<div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
-					<button id="kopioi-btn" class="nappula" type="button">Kopioi linkki</button>
-					<button id="uusi-btn" class="nappula" type="button">Uusi linkki</button>
-					<a href="../qr" class="nappula">QR-Koodin luojaan</a>
+			<div class="palsta">
+				<h2 class="palstatekstit">Luo Lyhytlinkki</h2>
+				<form id="lyhennin-lomake">
+					<input type="url" style="border-radius: 15px; padding: 15px; width: 300px;" name="url" placeholder="Syötä täysi URL eli sisältäen http(s)://" pattern="https?://.+" title="Linkin täytyy alkaa http:// tai https://" required>
+					<button type="submit" class="nappula">Lyhennä linkki</button>
 					<a href="../" class="nappula1">Takaisin pääsivulle</a>
+				</form>
+				<div id="tulos-alue" style="display: none; margin: 20px auto 0 auto; width: 400px; max-width: 500px; height: 100%; padding: 25px; background: rgba(0,0,0,0.3); border-radius: 15px; border: 2px solid #ffa500; text-align: center; box-sizing: border-box;">
+					
+					<p style="color: white; margin-bottom: 15px; font-weight: bold; font-size: 1.2rem; font-family: 'Open Sans', sans-serif;">Linkki on valmis!</p>
+					
+					<input type="text" id="lyhennetty-url" readonly>
+					
+					<div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
+						<button id="kopioi-btn" class="nappula" type="button">Kopioi linkki</button>
+						<button id="uusi-btn" class="nappula" type="button">Uusi linkki</button>
+						<a href="../qr" class="nappula">QR-Koodin luojaan</a>
+						<a href="../" class="nappula1">Takaisin pääsivulle</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script src="../tyylit/teemat.js"></script>
 	<script src="script.js"></script>
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
