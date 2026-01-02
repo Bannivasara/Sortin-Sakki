@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Vaihdetaan kenttiä valinnan mukaan
     tyyppiValikko.addEventListener('change', () => {   
+        lataaNappi.style.display = 'none';
         s2.style.display = 'none';
         s3.style.display = 'none';
         if (tyyppiValikko.value === 'text') {
