@@ -1,4 +1,4 @@
-const cacheName = 'qr-v5';
+const cacheName = 'qr-v6';
 const assets = [
   './',
   './index.html',
