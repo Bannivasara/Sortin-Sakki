@@ -119,7 +119,7 @@
 	width: auto;
 	max-width: 500px;
     gap: 15px;
-    padding: 20px;
+    padding: 25px 20px;
 	border-width: 3px;
 	border-style: solid;
 	border-radius: 36px;
@@ -184,6 +184,7 @@ body {
 	background-color:: #E0DDDA;
 
 }
+
 
 
 
