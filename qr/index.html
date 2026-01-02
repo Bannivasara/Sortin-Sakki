@@ -17,7 +17,7 @@
     <h2 class="palstatekstit">Luo QR-koodi</h2>
 		  		   <a href=../ class=nappula1 style="margin-bottom: 20px;">Takaisin pääsivulle</a>
     <select id="qr-tyyppi" class="lyhennin" style="padding: 15px; width: 300px; margin-bottom: 15px;">
-    		   <option value="text">Teksti</option>
+		<option value="text">Teksti</option>
         <option value="url">Nettilinkki</option>
         <option value="wifi">Wi-Fi verkko</option>
         <option value="vcard">Käyntikortti</option>
@@ -26,15 +26,15 @@
     <div id="kentat">
         <input type="text" id="syote1" class="qr" placeholder="Kirjoita teksti">
         <input type="text" id="syote2" class="qr" style="display: none;">
-    		   <input type="text" id="syote3" class="qr" style="display: none;">
+    	<input type="text" id="syote3" class="qr" style="display: none;">
     </div>
 
     <button id="generoi-btn" class="nappula" style="margin-top: 20px;">Generoi QR-koodi</button>
-		    <div id="qr-tulos" style="margin-top: 20px; display: none; background: white; padding: 10px; border-radius: 10px; width: fit-content; margin-left: auto; margin-right: auto;">
-    <p style="color: black; font-size: 0.8rem; margin-top: 10px;">Skannaa koodi puhelimella</p>
+		<div id="qr-tulos" style="margin-top: 20px; display: none; background: white; padding: 10px; border-radius: 10px; width: fit-content; margin-left: auto; margin-right: auto;">
+		<p style="color: black; font-size: 0.8rem; margin-top: 10px;">Skannaa koodi puhelimella</p>
      </div>
-<button id="lataa-btn" class="nappula" style="margin-top: 10px; display: none;">Lataa kuvana</button>
-		    </div>
+		<button id="lataa-btn" class="nappula" style="margin-top: 10px; display: none;">Lataa kuvana</button>
+	</div>
    </div>
   <script src="qrcode.min.js"></script>
   <script src="script.js"></script>
