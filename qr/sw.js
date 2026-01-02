@@ -3,7 +3,8 @@ const assets = [
   './',
   './index.html',
   './script.js',
-  './tyylit/style.css'
+  './qrcode.min.js', // TÄRKEÄ: Nyt tämäkin tallentuu puhelimeen
+  '../tyylit/style.css'
 ];
 
 // Asennusvaihe: Tallennetaan tiedostot välimuistiin
