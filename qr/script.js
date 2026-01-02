@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const s2 = document.getElementById('syote2');
     const s3 = document.getElementById('syote3');
     const nappi = document.getElementById('generoi-btn');
+    const lataaNappi = document.getElementById('lataa-btn');
     const qrTulos = document.getElementById('qr-tulos');
 
     // Vaihdetaan kenttiä valinnan mukaan
