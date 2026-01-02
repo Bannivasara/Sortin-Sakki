@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 colorLight : "#ffffff",
                 correctLevel : QRCode.CorrectLevel.H
             });
+            lataaNappi.style.display = 'block';
         }
     });
 });
