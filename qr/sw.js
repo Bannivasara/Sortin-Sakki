@@ -4,9 +4,11 @@ const assets = [
   './index.html',
   './script.js',
   './manifest.json',
-  './qrcode.min.js', // Lisää tämä heti kun olet luonut tiedoston!
-  '../tyylit/style.css' // Tämä varmistaa, että ulkoasu säilyy offlinessa
+  './qrcode.min.js',
+  './icon-512.png',           // Tämän on oltava sama kuin kansion tiedostonimi
+  '../tyylit/style.css'
 ];
+
 
 // Asennusvaihe: Tallennetaan tiedostot välimuistiin
 self.addEventListener('install', e => {
