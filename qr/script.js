@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const s2 = document.getElementById('syote2');
     const s3 = document.getElementById('syote3');
     const nappi = document.getElementById('generoi-btn');
-    const qrKuva = document.getElementById('qr-kuva');
     const qrTulos = document.getElementById('qr-tulos');
 
     // Vaihdetaan kenttiä valinnan mukaan
@@ -52,21 +51,24 @@ document.addEventListener('DOMContentLoaded', () => {
             lopullinenData = `BEGIN:VCARD\nVERSION:3.0\nFN:${v1}\nTEL:${v2}\nEMAIL:${v3}\nEND:VCARD`;
         }
 
-                if (v1.trim() !== "") {
-            // 2. Tyhjennetään tulosalue (div), jotta vanha QR-koodi poistuu
-            qrTulos.innerHTML = ''; 
-            qrTulos.style.display = 'block';
+        if (v1.trim() !== "") {
+    // 1. Tyhjennetään tulosalue
+    qrTulos.innerHTML = ''; 
+    
+    // 2. Varmistetaan että tulosalue näkyy (aiemmin se oli display: none)
+    qrTulos.style.display = 'block';
 
-            // 3. Luodaan uusi QR-koodi paikallisesti qrcode.min.js -kirjastolla
-            new QRCode(qrTulos, {
-                text: lopullinenData,
-                width: 250,
-                height: 250,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-        }
+    // 3. Luodaan uusi QR-koodi
+    new QRCode(qrTulos, {
+        text: lopullinenData,
+        width: 250,
+        height: 250,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+}
+
     });
 });
 
