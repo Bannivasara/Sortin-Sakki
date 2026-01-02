@@ -54,10 +54,23 @@ document.addEventListener('DOMContentLoaded', () => {
             lopullinenData = `BEGIN:VCARD\nVERSION:3.0\nFN:${v1}\nTEL:${v2}\nEMAIL:${v3}\nEND:VCARD`;
         }
 
-        if (v1.trim() !== "") {
-            // Käytetään ilmaista APIa kuvan luomiseen
-            qrKuva.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(lopullinenData)}`;
+                if (v1.trim() !== "") {
+            // 1. Piilotetaan vanha <img>-elementti, jos se on vielä siellä
+            qrKuva.style.display = 'none';
+            
+            // 2. Tyhjennetään tulosalue (div), jotta vanha QR-koodi poistuu
+            qrTulos.innerHTML = ''; 
             qrTulos.style.display = 'block';
+
+            // 3. Luodaan uusi QR-koodi paikallisesti qrcode.min.js -kirjastolla
+            new QRCode(qrTulos, {
+                text: lopullinenData,
+                width: 250,
+                height: 250,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
         }
     });
 });
