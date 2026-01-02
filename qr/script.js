@@ -53,9 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
                 if (v1.trim() !== "") {
-            // 1. Piilotetaan vanha <img>-elementti, jos se on vielä siellä
-            qrKuva.style.display = 'none';
-            
             // 2. Tyhjennetään tulosalue (div), jotta vanha QR-koodi poistuu
             qrTulos.innerHTML = ''; 
             qrTulos.style.display = 'block';
