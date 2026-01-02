@@ -131,8 +131,8 @@
 
 #lyhennetty-url {
     display: block !important;
-    width: 100% !important;
-    max-width: 300px !important;
+    width: 300px !important;
+    max-width: 90% !important;
     margin: 0 auto 20px auto !important;
     box-sizing: border-box !important;
     font-family: 'Open Sans', sans-serif !important;
@@ -151,18 +151,12 @@
 
 .lyhennin {
 	display: flex;
-	flex: 1;
     flex-direction: column;
 	align-items: center;
-	gap: 15px;
-	width: 250px;
-	max-width: 500px;
-	height: 100%;
-	padding: 50px;
-	border-width: 3px;
-	border-style: solid;
-	border-radius: 36px;
-	border-color: #FF9A33;
+	margin: 0 auto;
+	width: 100%;
+	max-width: 400px;
+	padding: 30px;
 }
 
 #kentat {
