@@ -1,16 +1,22 @@
 {
   "name": "Sorolan QR-luoja",
   "short_name": "QR-luoja",
-  "description": "Luo QR-koodeja offline-tilassa.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1a1a1a",
   "theme_color": "#1a1a1a",
   "icons": [
     {
-      "src": "../tyylit/fav.ico",
-      "sizes": "64x64",
-      "type": "image/x-icon"
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
