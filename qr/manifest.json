@@ -1,7 +1,7 @@
 {
   "name": "Sorolan QR-luoja",
   "short_name": "QR-luoja",
-  "start_url": "index.html",
+  "start_url": "index",
   "display": "standalone",
   "background_color": "#1a1a1a",
   "theme_color": "#1a1a1a",
