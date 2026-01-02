@@ -136,15 +136,17 @@
 
 #lyhennetty-url {
     display: block !important;
-    width: 280px !important;
+    width: 100% !important;
 	min-width: 280px !important;
-    max-width: 280px !important;
+    max-width: 300px !important;
     margin: 0 auto 20px auto !important;
     box-sizing: border-box !important;
     font-family: 'Open Sans', sans-serif !important;
     text-align: center !important;
 	font-size: 1.5rem !important;
-    padding: 18px 10px !important;
+    padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
     height: auto !important;
     line-height: 1.2 !important;
 }
@@ -220,4 +222,5 @@ body.yoteema {
     padding: 10px 15px;
     font-size: 14px;
     z-index: 1000;
+
 }
