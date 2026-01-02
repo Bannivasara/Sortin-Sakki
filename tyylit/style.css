@@ -1,6 +1,10 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 .banner {
 	background-image: url('banner.svg');
 	background-size: cover;
@@ -103,7 +107,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: stretch;
+    align-items: flex-start;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -118,9 +122,10 @@
     flex-direction: column;
     align-items: center;
 	justify-content: flex-start;
-	width: 100%;
-	max-width: 500px;
+	width: 100% !important;
+	max-width: 350px !important;
     gap: 15px;
+	margin: 0 auto !important;
     padding: 25px 15px;
 	border-width: 3px;
 	border-style: solid;
@@ -131,8 +136,9 @@
 
 #lyhennetty-url {
     display: block !important;
-    width: 300px !important;
-    max-width: 90% !important;
+    width: 280px !important;
+	min-width: 280px !important;
+    max-width: 280px !important;
     margin: 0 auto 20px auto !important;
     box-sizing: border-box !important;
     font-family: 'Open Sans', sans-serif !important;
@@ -153,8 +159,10 @@
 	display: flex;
     flex-direction: column;
 	align-items: center;
+	justify-content: flex-start;
 	margin: 0 auto;
-	width: 100%;
+	width: 350px;
+	gap: 15px;
 	max-width: 400px;
 	padding: 30px;
 }
