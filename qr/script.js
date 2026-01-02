@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    nappi.addEventListener('click', () => {
+nappi.addEventListener('click', () => {
         let lopullinenData = "";
         const v1 = s1.value;
         const v2 = s2.value;
@@ -53,11 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (v1.trim() !== "") {
-            // Tyhjennetään tulosalue ja varmistetaan näkyvyys
             qrTulos.innerHTML = ''; 
             qrTulos.style.display = 'block';
 
-            // Luodaan QR-koodi paikallisesti
             new QRCode(qrTulos, {
                 text: lopullinenData,
                 width: 250,
@@ -66,7 +64,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 colorLight : "#ffffff",
                 correctLevel : QRCode.CorrectLevel.H
             });
+            
             lataaNappi.style.display = 'block';
         }
+    }); // <--- Tähän päättyy generointinapin kuuntelija
+
+    // 2. Latausnapin toiminto (omana lohkonaan)
+    lataaNappi.addEventListener('click', () => {
+        const koodiElementti = qrTulos.querySelector('canvas') || qrTulos.querySelector('img');
+
+        if (koodiElementti) {
+            let kuvaUrl;
+            if (koodiElementti.tagName === 'CANVAS') {
+                kuvaUrl = koodiElementti.toDataURL("image/png");
+            } else {
+                kuvaUrl = koodiElementti.src;
+            }
+
+            const latausLinkki = document.createElement('a');
+            latausLinkki.href = kuvaUrl;
+            latausLinkki.download = 'oma-qr-koodi.png';
+            document.body.appendChild(latausLinkki);
+            latausLinkki.click();
+            document.body.removeChild(latausLinkki);
+        } else {
+            alert("Luo ensin QR-koodi!");
+        }
     });
-});
+}); 
