@@ -3,8 +3,9 @@ const assets = [
   './',
   './index.html',
   './script.js',
-  './qrcode.min.js', // TÄRKEÄ: Nyt tämäkin tallentuu puhelimeen
-  '../tyylit/style.css'
+  './manifest.json',
+  './qrcode.min.js', // Lisää tämä heti kun olet luonut tiedoston!
+  '../tyylit/style.css' // Tämä varmistaa, että ulkoasu säilyy offlinessa
 ];
 
 // Asennusvaihe: Tallennetaan tiedostot välimuistiin
