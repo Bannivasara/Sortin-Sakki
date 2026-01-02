@@ -1,0 +1,16 @@
+{
+  "name": "Sorolan QR-luoja",
+  "short_name": "QR-luoja",
+  "description": "Luo QR-koodeja offline-tilassa.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
