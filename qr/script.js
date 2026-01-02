@@ -1,3 +1,11 @@
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('Service Worker rekisteröity!', reg))
+      .catch(err => console.log('Rekisteröinti epäonnistui:', err));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const tyyppiValikko = document.getElementById('qr-tyyppi');
     const s1 = document.getElementById('syote1');
