@@ -1,6 +1,14 @@
 async function kirjauduSisaan() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
+    const userElement = document.getElementById('username');
+    const passElement = document.getElementById('password');
+
+    if (!userElement || !passElement) {
+        console.error("Lomake-elementtejä ei löytynyt!");
+        return;
+    }
+
+    const user = userElement.value;
+    const pass = passElement.value;
 
     try {
         const response = await fetch('https://soro.la/api/login', {
@@ -15,12 +23,12 @@ async function kirjauduSisaan() {
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('admin-content').style.display = 'block';
             console.log("Kirjautuminen onnistui!");
-            haeLinkit(); // Haetaan lista heti
+            haeLinkit();
         } else {
             alert("Pääsy evätty!");
         }
     } catch (error) {
-        console.error("Virhe:", error);
+        console.error("Kirjautumisvirhe:", error);
         alert("Yhteysvirhe palvelimeen.");
     }
 }
@@ -35,7 +43,7 @@ async function haeLinkit() {
         const response = await fetch('https://soro.la/api/listaa');
         const linkit = await response.json();
 
-        if (linkit.length === 0) {
+        if (!linkit || linkit.length === 0) {
             listaAlue.innerHTML = "<p style='color: white;'>Ei vielä linkkejä tietokannassa.</p>";
             return;
         }
