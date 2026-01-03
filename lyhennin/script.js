@@ -1,45 +1,60 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const lomake = document.getElementById('lyhennin-lomake');
-    const tulosAlue = document.getElementById('tulos-alue');
-    const urlInput = document.getElementById('lyhennetty-url');
-    const kopioiBtn = document.getElementById('kopioi-btn');
-    const uusiBtn = document.getElementById('uusi-btn');
+// --- 1. LINKIN LUONTI ---
 
-    // 1. Linkin luominen
-    lomake.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = lomake.querySelector('button');
-        btn.innerText = "Käsitellään...";
+async function luoLyhytlinkki() {
+    const inputKentta = document.getElementById('url-input'); // Varmista että ID täsmää HTML:ssä
+    const tulosAlue = document.getElementById('result');
+    const pitkaUrl = inputKentta.value.trim();
 
-        try {
-            const res = await fetch('https://soro.la', {
-                method: 'POST',
-                body: new FormData(lomake)
-            });
+    if (!pitkaUrl) {
+        alert("Syötä ensin osoite!");
+        return;
+    }
 
-            if (res.ok) {
-                const id = await res.text();
-                lomake.style.display = 'none'; // Piilota vanha
-                tulosAlue.style.display = 'block'; // Näytä uusi
-                urlInput.value = "soro.la/" + id;
-            }
-        } catch (e) { alert("Virhe!"); }
-        btn.innerText = "Lyhennä linkki";
-    });
+    try {
+        // Lähetetään pyyntö omalle Workerille
+        const response = await fetch('/api/luo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: pitkaUrl })
+        });
 
-    // 2. Kopiointi
-    kopioiBtn.addEventListener('click', () => {
-        urlInput.select();
-        navigator.clipboard.writeText(urlInput.value);
-        const alkupTeksti = kopioiBtn.innerText;
-        kopioiBtn.innerText = "Kopioitu!";
-        setTimeout(() => { kopioiBtn.innerText = alkupTeksti; }, 2000);
-    });
+        const data = await response.json();
 
-    // 3. Tee uusi
-    uusiBtn.addEventListener('click', () => {
-        tulosAlue.style.display = 'none';
-        lomake.style.display = 'block';
-        lomake.reset();
-    });
-});
+        if (response.ok) {
+            // Näytetään uusi linkki käyttäjälle
+            tulosAlue.innerHTML = `
+                <p>Linkki luotu!</p>
+                <input type="text" value="${data.shortUrl}" id="short-url-copy" readonly>
+                <button onclick="kopioiLinkki()">Kopioi</button>
+            `;
+            inputKentta.value = ''; // Tyhjennetään kenttä
+        } else {
+            alert(data.error || "Jotain meni pieleen.");
+        }
+    } catch (error) {
+        console.error("Virhe:", error);
+        alert("Yhteysvirhe palvelimeen.");
+    }
+}
+
+function kopioiLinkki() {
+    const copyText = document.getElementById("short-url-copy");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Linkki kopioitu leikepöydälle!");
+}
+
+// --- 2. TEEMAN VAIHTO (Se sun aiempi koodi) ---
+
+function vaihdaTeema(teema) {
+    document.body.className = teema;
+    localStorage.setItem('valittu-teema', teema);
+}
+
+// Ladataan teema kun sivu avataan
+window.onload = () => {
+    const tallennettuTeema = localStorage.getItem('valittu-teema');
+    if (tallennettuTeema) {
+        vaihdaTeema(tallennettuTeema);
+    }
+};
