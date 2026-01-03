@@ -1,9 +1,37 @@
+async function kirjauduSisaan() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('https://soro.la/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, password: pass })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'block';
+            console.log("Kirjautuminen onnistui!");
+            haeLinkit(); // Haetaan lista heti
+        } else {
+            alert("Pääsy evätty!");
+        }
+    } catch (error) {
+        console.error("Virhe:", error);
+        alert("Yhteysvirhe palvelimeen.");
+    }
+}
+
 async function haeLinkit() {
     const listaAlue = document.getElementById('linkki-lista-alue');
+    if (!listaAlue) return;
+    
     listaAlue.innerHTML = "<p style='color: white;'>Haetaan linkkejä...</p>";
 
     try {
-        // Kutsutaan Workerin uutta rajapintaa
         const response = await fetch('https://soro.la/api/listaa');
         const linkit = await response.json();
 
@@ -12,7 +40,6 @@ async function haeLinkit() {
             return;
         }
 
-        // Luodaan taulukko
         let html = `
             <table style="width:100%; color:white; border-collapse: collapse; margin-top:20px; font-family: Arial, sans-serif;">
                 <thead>
@@ -41,7 +68,7 @@ async function haeLinkit() {
         listaAlue.innerHTML = html;
 
     } catch (error) {
-        listaAlue.innerHTML = "<p style='color: red;'>Virhe linkkien hakemisessa. Tarkista konsoli.</p>";
+        listaAlue.innerHTML = "<p style='color: red;'>Virhe linkkien hakemisessa.</p>";
         console.error("Haku epäonnistui:", error);
     }
-} // <--- Tämä sulku on nyt vasta täällä lopussa!
+}
