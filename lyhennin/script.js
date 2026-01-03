@@ -9,7 +9,6 @@ async function luoLyhytlinkki() {
     try {
         const response = await fetch('https://sorola-short.bannivasara.workers.dev/api/luo', {
             method: 'POST',
-            mode: 'cors', // Lisää tämä
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: pitkaUrl })
         });
@@ -46,3 +45,4 @@ function resetoiLomake() {
     document.getElementById('url-input').value = '';
 
 }
+
