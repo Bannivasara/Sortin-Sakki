@@ -17,21 +17,23 @@
 		<div class="paasivu">
 			<div class="palsta">
 				<h2 class="palstatekstit">Luo Lyhytlinkki</h2>
-				<form id="lyhennin-lomake" onsubmit="event.preventDefault(); luoLyhytlinkki();">
-					<input type="url" id="url-input" style="border-radius: 15px; padding: 15px; width: 300px;" name="url" placeholder="Syötä täysi URL eli sisältäen http(s)://" required>
+				<form id="lyhennin-lomake">
+					<input type="url" style="border-radius: 15px; padding: 15px; width: 300px;" name="url" placeholder="Syötä täysi URL eli sisältäen http(s)://" pattern="https?://.+" title="Linkin täytyy alkaa http:// tai https://" required>
 					<button type="submit" class="nappula">Lyhennä linkki</button>
 					<a href="../" class="nappula1">Takaisin pääsivulle</a>
 				</form>
-
-			<div id="result" style="display: none; width: 100%; text-align: center; margin-top: 20px;">
-				<p style="color: white; margin-bottom: 15px; font-weight: bold; font-size: 1.2rem; font-family: 'Open Sans', sans-serif;">Linkki on valmis!</p>
-				
-				<input type="text" id="lyhennetty-url" style="border-radius: 15px; padding: 10px; width: 80%; margin-bottom: 15px; text-align: center;" readonly>
-				
-				<div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
-					<button id="kopioi-btn" class="nappula" type="button" onclick="kopioiLinkki()">Kopioi linkki</button>
-					<button id="uusi-btn" class="nappula" type="button" onclick="resetoiLomake()">Uusi linkki</button>
-					<a href="../qr" class="nappula">QR-Koodin luojaan</a>
+				<div id="tulos-alue" style="display: none; width: 100%; text-align: center; margin-top: 20px;">
+					
+					<p style="color: white; margin-bottom: 15px; font-weight: bold; font-size: 1.2rem; font-family: 'Open Sans', sans-serif;">Linkki on valmis!</p>
+					
+					<input type="text" id="lyhennetty-url" readonly>
+					
+					<div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
+						<button id="kopioi-btn" class="nappula" type="button">Kopioi linkki</button>
+						<button id="uusi-btn" class="nappula" type="button">Uusi linkki</button>
+						<a href="../qr" class="nappula">QR-Koodin luojaan</a>
+						<a href="../" class="nappula1">Takaisin pääsivulle</a>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,46 +1,45 @@
-async function luoLyhytlinkki() {
-    const inputKentta = document.getElementById('url-input');
-    const tulosAlue = document.getElementById('result');
-    const lyhennettyKentta = document.getElementById('lyhennetty-url');
+document.addEventListener('DOMContentLoaded', () => {
     const lomake = document.getElementById('lyhennin-lomake');
-    
-    const pitkaUrl = inputKentta.value.trim();
+    const tulosAlue = document.getElementById('tulos-alue');
+    const urlInput = document.getElementById('lyhennetty-url');
+    const kopioiBtn = document.getElementById('kopioi-btn');
+    const uusiBtn = document.getElementById('uusi-btn');
 
-    try {
-        const response = await fetch('/api/luo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url: pitkaUrl })
-        });
+    // 1. Linkin luominen
+    lomake.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = lomake.querySelector('button');
+        btn.innerText = "Käsitellään...";
 
-        const data = await response.json();
+        try {
+            const res = await fetch('https://soro.la', {
+                method: 'POST',
+                body: new FormData(lomake)
+            });
 
-        if (response.ok) {
-            // Asetetaan uusi linkki kenttään
-            lyhennettyKentta.value = data.shortUrl;
-            
-            // Piilotetaan lomake ja näytetään tulos (tyylit säilyvät)
-            lomake.style.display = 'none';
-            tulosAlue.style.display = 'block';
-        } else {
-            alert(data.error || "Jotain meni pieleen.");
-        }
-    } catch (error) {
-        console.error("Virhe:", error);
-        alert("Yhteysvirhe palvelimeen.");
-    }
-}
+            if (res.ok) {
+                const id = await res.text();
+                lomake.style.display = 'none'; // Piilota vanha
+                tulosAlue.style.display = 'block'; // Näytä uusi
+                urlInput.value = "soro.la/" + id;
+            }
+        } catch (e) { alert("Virhe!"); }
+        btn.innerText = "Lyhennä linkki";
+    });
 
-function kopioiLinkki() {
-    const copyText = document.getElementById("lyhennetty-url");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); // Mobiililaitteille
-    navigator.clipboard.writeText(copyText.value);
-    alert("Linkki kopioitu!");
-}
+    // 2. Kopiointi
+    kopioiBtn.addEventListener('click', () => {
+        urlInput.select();
+        navigator.clipboard.writeText(urlInput.value);
+        const alkupTeksti = kopioiBtn.innerText;
+        kopioiBtn.innerText = "Kopioitu!";
+        setTimeout(() => { kopioiBtn.innerText = alkupTeksti; }, 2000);
+    });
 
-function resetoiLomake() {
-    document.getElementById('lyhennin-lomake').style.display = 'block';
-    document.getElementById('result').style.display = 'none';
-    document.getElementById('url-input').value = '';
-}
+    // 3. Tee uusi
+    uusiBtn.addEventListener('click', () => {
+        tulosAlue.style.display = 'none';
+        lomake.style.display = 'block';
+        lomake.reset();
+    });
+});
