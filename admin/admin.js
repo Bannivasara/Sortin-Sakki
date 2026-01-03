@@ -3,11 +3,11 @@ async function kirjauduSisaan() {
     const pass = document.getElementById('password').value;
 
     try {
-        const response = await fetch('https://sorola-short.bannivasara.workers.dev/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, password: pass })
-        });
+        const response = await fetch('https://soro.la/api/login', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username: user, password: pass })
+		});
 
         const result = await response.json();
 
