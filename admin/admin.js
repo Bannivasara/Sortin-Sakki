@@ -55,6 +55,7 @@ async function haeLinkit() {
                         <th style="padding: 10px;">ID</th>
                         <th style="padding: 10px;">Kohde</th>
                         <th style="padding: 10px; text-align: center;">Klikit</th>
+                        <th style="padding: 10px; text-align: center;">Toiminnot</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,11 @@ async function haeLinkit() {
                         <a href="${l.url}" target="_blank" style="color: #aaa; text-decoration: none;">${l.url}</a>
                     </td>
                     <td style="padding: 10px; text-align: center;">${l.clicks || 0}</td>
+                    <td style="padding: 10px; text-align: center;">
+                        <button onclick="poistaLinkki('${l.id}')" class="adminappula" style="padding: 5px 15px; font-size: 12px; background-color: #d93025;">
+                            Poista
+                        </button>
+                    </td>
                 </tr>
             `;
         });
@@ -78,5 +84,24 @@ async function haeLinkit() {
     } catch (error) {
         listaAlue.innerHTML = "<p style='color: red;'>Virhe linkkien hakemisessa.</p>";
         console.error("Haku epäonnistui:", error);
+    }
+}
+
+async function poistaLinkki(id) {
+    if (!confirm("Haluatko varmasti poistaa linkin " + id + "?")) return;
+
+    try {
+        const response = await fetch(`https://soro.la/api/poista?id=${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            haeLinkit(); // Päivitetään lista
+        } else {
+            alert("Poisto epäonnistui.");
+        }
+    } catch (error) {
+        console.error("Virhe poistaessa:", error);
+        alert("Yhteysvirhe poistettaessa.");
     }
 }
