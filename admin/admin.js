@@ -1,27 +1,33 @@
-async function kirjauduSisaan() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
+async function haeLinkit() {
+    const listaAlue = document.getElementById('linkki-lista-alue');
+    listaAlue.innerHTML = "Haetaan linkkejä...";
 
     try {
-        const response = await fetch('https://soro.la/api/login', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ username: user, password: pass })
-		});
+        // Huom: Tarvitset Workeriin /api/listaa -reitin, jotta tämä toimii
+        const response = await fetch('https://soro.la/api/listaa');
+        const linkit = await response.json();
 
-        const result = await response.json();
-
-        if (result.success) {
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('admin-content').style.display = 'block';
-            console.log("Kirjautuminen onnistui!");
-        } else {
-            alert("Pääsy evätty! Tarkista tunnus ja salasana.");
+        if (linkit.length === 0) {
+            listaAlue.innerHTML = "Ei vielä linkkejä tietokannassa.";
+            return;
         }
+
+        let html = '<table style="width:100%; color:white; border-collapse: collapse; margin-top:20px;">';
+        html += '<tr style="border-bottom: 1px solid #444;"><th>ID</th><th>Alkuperäinen</th><th>Klikit</th></tr>';
+        
+        linkit.forEach(l => {
+            html += `<tr style="border-bottom: 1px solid #222;">
+                <td style="padding:10px;">${l.id}</td>
+                <td style="padding:10px; font-size:12px; max-width:150px; overflow:hidden;">${l.url}</td>
+                <td style="padding:10px; text-align:center;">${l.clicks || 0}</td>
+            </tr>`;
+        });
+        html += '</table>';
+        
+        listaAlue.innerHTML = html;
+
     } catch (error) {
-        console.error("Virhe:", error);
-        alert("Yhteysvirhe palvelimeen.");
+        listaAlue.innerHTML = "Virhe linkkien hakemisessa.";
+        console.error(error);
     }
 }
-
-// Voit myöhemmin lisätä tänne haeLinkit() funktion
