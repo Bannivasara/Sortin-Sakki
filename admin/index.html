@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-	<meta charset="UTF-8">
-	<title>Sorolan Sakki - Hallintapaneeli</title>
-	<link id=normal-theme rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title>Sorolan Sakki - Hallintapaneeli</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="admin-style.css">
 </head>
-<script>
-async function kirjauduSisaan() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
-
-    const response = await fetch('https://sorola-short.bannivasara.workers.dev/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass })
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-        document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('admin-content').style.display = 'block';
-        haeLinkit(); // Haetaan heti linkkilista näkyviin
-    } else {
-        alert("Pääsy evätty!");
-    }
-}
-</script>
 <body>
-	<div class="adminsivu">
-		<div class="adminpalsta">
-			<a href="#" class="adminappula">Poista</a>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>Admin Kirjautuminen</h2>
+            <input type="text" id="username" placeholder="Käyttäjätunnus">
+            <input type="password" id="password" placeholder="Salasana">
+            <button onclick="kirjauduSisaan()" class="adminappula">Kirjaudu</button>
+        </div>
+    </div>
+
+    <div id="admin-content" class="adminsivu" style="display: none;">
+        <div class="adminpalsta">
+            <h1>Tervetuloa, Make!</h1>
+            <p>Täällä voit hallita linkkejä ja katsoa tilastoja.</p>
+            <button onclick="haeLinkit()" class="adminappula">Päivitä linkkilista</button>
+            
+            <div id="linkki-lista-alue" style="margin-top: 20px;">
+                </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
 </body>
+</html>
