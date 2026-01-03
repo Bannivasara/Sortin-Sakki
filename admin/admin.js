@@ -44,4 +44,4 @@ async function haeLinkit() {
         listaAlue.innerHTML = "<p style='color: red;'>Virhe linkkien hakemisessa. Tarkista konsoli.</p>";
         console.error("Haku epäonnistui:", error);
     }
-}
+} // <--- Tämä sulku on nyt vasta täällä lopussa!
