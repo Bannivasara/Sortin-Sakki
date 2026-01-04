@@ -14,6 +14,9 @@
 		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
 	</div>
 	<p class="saate">Lisäilen tänne hauskoja kuvia, joita olen vuosien aikana löytänyt. Kaikkea ei tarvitse tajuta eikä varsinkaan ottaa vakavasti. :)</p>
+	<div id="lightbox" onclick="this.style.display='none'">
+		<img id="lightbox-img" src="" alt="Suurennos">
+	</div>
 	<div id="kuva-grid" class="grid"></div>
     <div id="lataus-vahti"></div> <script>
         let kaikkiKuvat = [];
@@ -42,19 +45,27 @@
         }
 
         function lataaEra() {
-            const grid = document.getElementById('kuva-grid');
-            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
-            
-            seuraavat.forEach(kuvaNimi => {
-                const kortti = document.createElement('div');
-                kortti.className = 'huumori-kortti';
-                // loading="lazy" on kriittinen suorituskyvylle
-                kortti.innerHTML = `<img src="kuvat/${kuvaNimi}" loading="lazy" alt="Huumori">`;
-                grid.appendChild(kortti);
-            });
-            
-            naytettyja += erakoko;
-        }
+			const grid = document.getElementById('kuva-grid');
+			const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
+			
+			seuraavat.forEach(kuvaNimi => {
+				const kortti = document.createElement('div');
+				kortti.className = 'huumori-kortti';
+				
+				const img = document.createElement('img');
+				img.src = `kuvat/${kuvaNimi}`;
+				img.loading = "lazy";
+				img.alt = "Huumori";
+				
+				// Klikkaus avaa suurennoksen
+				img.onclick = () => {
+					document.getElementById('lightbox-img').src = img.src;
+					document.getElementById('lightbox').style.display = 'flex';
+				};
+				
+				kortti.appendChild(img);
+				grid.appendChild(kortti);
+			});
 
         alusta();
     </script>
