@@ -18,20 +18,20 @@
 		<img id="lightbox-img" src="" alt="Suurennos">
 	</div>
 	<div id="kuva-grid" class="grid"></div>
-    <div id="lataus-vahti"></div> <script>
+    <div id="lataus-vahti"></div> 
+	<script>
         let kaikkiKuvat = [];
         let naytettyja = 0;
         const erakoko = 15;
 
         async function alusta() {
             try {
-                // Lisätään timestamp, jotta selain ei käytä vanhaa välimuistia (estää .la-virheet)
+                // Lisätään timestamp välimuistin ohittamiseksi
                 const res = await fetch('kuvat.json?v=' + Date.now());
                 kaikkiKuvat = await res.json();
                 
                 lataaEra(); // Ladataan ekat 15
 
-                // IntersectionObserver hoitaa dynaamisen latauksen
                 const observer = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting && naytettyja < kaikkiKuvat.length) {
                         lataaEra();
@@ -40,32 +40,35 @@
 
                 observer.observe(document.getElementById('lataus-vahti'));
             } catch (e) {
-                console.error("Virhe: Varmista että olet sorola.fi osoitteessa!", e);
+                console.error("Virhe ladattaessa kuvia:", e);
             }
         }
 
         function lataaEra() {
-			const grid = document.getElementById('kuva-grid');
-			const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
-			
-			seuraavat.forEach(kuvaNimi => {
-				const kortti = document.createElement('div');
-				kortti.className = 'huumori-kortti';
-				
-				const img = document.createElement('img');
-				img.src = `kuvat/${kuvaNimi}`;
-				img.loading = "lazy";
-				img.alt = "Huumori";
-				
-				// Klikkaus avaa suurennoksen
-				img.onclick = () => {
-					document.getElementById('lightbox-img').src = img.src;
-					document.getElementById('lightbox').style.display = 'flex';
-				};
-				
-				kortti.appendChild(img);
-				grid.appendChild(kortti);
-			});
+            const grid = document.getElementById('kuva-grid');
+            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
+            
+            seuraavat.forEach(kuvaNimi => {
+                const kortti = document.createElement('div');
+                kortti.className = 'huumori-kortti';
+                
+                const img = document.createElement('img');
+                img.src = `kuvat/${kuvaNimi}`;
+                img.loading = "lazy";
+                img.alt = "Huumori";
+                
+                img.onclick = () => {
+                    document.getElementById('lightbox-img').src = img.src;
+                    document.getElementById('lightbox').style.display = 'flex';
+                };
+                
+                kortti.appendChild(img);
+                grid.appendChild(kortti);
+            });
+            
+            // TÄMÄ PUUTTUI: Päivitetään laskuri ja suljetaan funktio
+            naytettyja += erakoko;
+        }
 
         alusta();
     </script>
