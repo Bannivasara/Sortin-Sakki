@@ -13,23 +13,54 @@
 		<h1 class="sorola">Sorolan Huumorikuvat</h1>
 		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
 	</div>
-    <div id="kuva-grid" class="grid">
-        </div>
+    <div id="kuva-grid" class="grid"></div>
+    <div style="text-align: center; margin: 20px;">
+        <button id="lataa-lisaa" class="nappula" style="display: none;">Lataa lisää kuvia...</button>
+    </div>
 
     <script>
-        async function lataaKuvat() {
-            const res = await fetch('https://soro.la/api/kuvat');
-            const kuvat = await res.json();
+        let kaikkiKuvat = [];
+        let naytettyja = 0;
+        const perSivu = 12; // Näytetään 12 kuvaa kerrallaan
+
+        async function alustaGalleria() {
+            try {
+                // Haetaan JSON-tiedosto, joka on samassa kansiossa GitHubissa
+                const res = await fetch('kuvat.json');
+                kaikkiKuvat = await res.json();
+                
+                if (kaikkiKuvat.length > 0) {
+                    lataaLisaa();
+                    document.getElementById('lataa-lisaa').style.display = 'inline-block';
+                }
+            } catch (e) {
+                console.error("Virhe ladattaessa kuvat.json -tiedostoa", e);
+            }
+        }
+
+        function lataaLisaa() {
             const grid = document.getElementById('kuva-grid');
+            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + perSivu);
             
-            grid.innerHTML = kuvat.map(k => `
+            const uusiSisalto = seuraavat.map(k => `
                 <div class="huumori-kortti">
-                    <img src="${k.kuva_url}" alt="Huumorikuva">
-                    ${k.kuvaus ? `<div class="kuvateksti">${k.kuvaus}</div>` : ''}
+                    <img src="${k.u}" alt="Huumorikuva" loading="lazy">
+                    ${k.t ? `<div class="kuvateksti">${k.t}</div>` : ''}
                 </div>
             `).join('');
+
+            grid.innerHTML += uusiSisalto;
+            naytettyja += perSivu;
+
+            if (naytettyja >= kaikkiKuvat.length) {
+                document.getElementById('lataa-lisaa').style.display = 'none';
+            }
         }
-        lataaKuvat();
+
+        document.getElementById('lataa-lisaa').addEventListener('click', lataaLisaa);
+        
+        // Käynnistetään galleria
+        alustaGalleria();
     </script>
 	<script src="../tyylit/teemat.js"></script>
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
