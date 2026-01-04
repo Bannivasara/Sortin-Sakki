@@ -1,36 +1,40 @@
-<html>
+<!DOCTYPE html>
+<html lang="fi">
 <head>
-	<meta charset="UTF-8">
-	<title>Sorolan huumorit</title>
-	<link rel="stylesheet" type="text/css" href="../tyylit/style.css">
-	<link rel="stylesheet" type="text/css" href="style/style.css">
-	<link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
-	<meta name="description" content="Sorolan huumorit löytyvät täältä.">
-	<meta name="keywords" content="Sorola, Sortin Sakki, huumori">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorolan huumorit</title>
+    <link rel="stylesheet" type="text/css" href="../tyylit/style.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
 </head>
 <body>
-	<div class="banner">
-		<h1 class="sorola">Sorolan Huumorikuvat</h1>
-		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
-	</div>
-	<p class="saate">Lisäilen tänne hauskoja kuvia, joita olen vuosien aikana löytänyt. Kaikkea ei tarvitse tajuta eikä varsinkaan ottaa vakavasti. :)</p>
-	<div id="lightbox" onclick="this.style.display='none'">
-		<img id="lightbox-img" src="" alt="Suurennos">
-	</div>
-	<div id="kuva-grid" class="grid"></div>
-    <div id="lataus-vahti"></div> 
-	<script>
+    <div class="banner">
+        <h1 class="sorola">Sorolan Huumorikuvat</h1>
+        <button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
+    </div>
+    
+    <p class="saate">Lisäilen tänne hauskoja kuvia, joita olen vuosien aikana löytänyt. Kaikkea ei tarvitse tajuta eikä varsinkaan ottaa vakavasti. :)</p>
+
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Suurennos">
+    </div>
+
+    <div id="kuva-grid" class="grid"></div>
+    <div id="lataus-vahti"></div>
+
+    <script>
         let kaikkiKuvat = [];
         let naytettyja = 0;
         const erakoko = 15;
 
         async function alusta() {
             try {
-                // Lisätään timestamp välimuistin ohittamiseksi
                 const res = await fetch('kuvat.json?v=' + Date.now());
+                if (!res.ok) throw new Error('JSON-tiedostoa ei löytynyt');
                 kaikkiKuvat = await res.json();
                 
-                lataaEra(); // Ladataan ekat 15
+                lataaEra();
 
                 const observer = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting && naytettyja < kaikkiKuvat.length) {
@@ -40,7 +44,7 @@
 
                 observer.observe(document.getElementById('lataus-vahti'));
             } catch (e) {
-                console.error("Virhe ladattaessa kuvia:", e);
+                console.error("Virhe:", e);
             }
         }
 
@@ -55,7 +59,6 @@
                 const img = document.createElement('img');
                 img.src = `kuvat/${kuvaNimi}`;
                 img.loading = "lazy";
-                img.alt = "Huumori";
                 
                 img.onclick = () => {
                     document.getElementById('lightbox-img').src = img.src;
@@ -66,7 +69,6 @@
                 grid.appendChild(kortti);
             });
             
-            // TÄMÄ PUUTTUI: Päivitetään laskuri ja suljetaan funktio
             naytettyja += erakoko;
         }
 
