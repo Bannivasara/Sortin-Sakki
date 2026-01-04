@@ -26,7 +26,7 @@
         async function alustaGalleria() {
             try {
                 // Haetaan JSON-tiedosto, joka on samassa kansiossa GitHubissa
-                const res = await fetch('kuvat.json');
+                const res = await fetch('https://sorola.fi/huumorikuvat/kuvat.json')
                 kaikkiKuvat = await res.json();
                 
                 if (kaikkiKuvat.length > 0) {
