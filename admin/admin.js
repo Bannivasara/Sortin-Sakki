@@ -105,3 +105,48 @@ async function poistaLinkki(id) {
         alert("Yhteysvirhe poistettaessa.");
     }
 }
+
+async function lisaaKuva() {
+    const url = document.getElementById('kuva-url').value;
+    const kuvaus = document.getElementById('kuva-kuvaus').value;
+    
+    await fetch('https://soro.la/api/lisaa-kuva', {
+        method: 'POST',
+        body: JSON.stringify({ url, kuvaus })
+    });
+    
+    document.getElementById('kuva-url').value = '';
+    document.getElementById('kuva-kuvaus').value = '';
+    paivitaKuvaLista();
+}
+
+async function paivitaKuvaLista() {
+    const listaAlue = document.getElementById('kuva-hallinta-alue');
+    try {
+        const response = await fetch('https://soro.la/api/kuvat');
+        const kuvat = await response.json();
+
+        let html = '<ul style="list-style:none; padding:0;">';
+        kuvat.forEach(k => {
+            html += `
+                <li style="display:flex; align-items:center; gap:10px; margin-bottom:10px; background:#222; padding:10px; border-radius:5px;">
+                    <img src="${k.kuva_url}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                    <div style="flex-grow:1;">
+                        <div style="color:white; font-size:12px;">${k.kuvaus || 'Ei kuvausta'}</div>
+                    </div>
+                    <button onclick="poistaKuva(${k.id})" class="adminappula" style="background:#d93025; padding:5px;">Poista</button>
+                </li>
+            `;
+        });
+        html += '</ul>';
+        listaAlue.innerHTML = html;
+    } catch (e) {
+        console.error("Kuvien haku epäonnistui", e);
+    }
+}
+
+async function poistaKuva(id) {
+    if(!confirm("Poistetaanko kuva?")) return;
+    await fetch(`https://soro.la/api/poista-kuva?id=${id}`, { method: 'DELETE' });
+    paivitaKuvaLista();
+}
