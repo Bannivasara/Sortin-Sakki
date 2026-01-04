@@ -1,30 +1,68 @@
-// 1. Linkin luominen
-lomake.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = lomake.querySelector('button');
-    const idValue = document.getElementById('uusi-id').value; // Varmista että ID-kentän ID on tämä
-    const urlValue = document.getElementById('uusi-url').value; // Varmista että URL-kentän ID on tämä
+document.addEventListener('DOMContentLoaded', () => {
+    const lomake = document.getElementById('lyhennin-lomake');
+    const tulosAlue = document.getElementById('tulos-alue');
+    const urlInput = document.getElementById('lyhennetty-url');
+    const kopioiBtn = document.getElementById('kopioi-btn');
+    const uusiBtn = document.getElementById('uusi-btn');
 
-    btn.innerText = "Käsitellään...";
+    if (lomake) {
+        lomake.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Haetaan se pitkä URL-osoite input-kentästä nimen perusteella
+            const pitkaUrl = lomake.querySelector('input[name="url"]').value;
+            
+            // Koska HTML:ssä ei ole kenttää lyhenteelle (id), arvotaan tässä lyhyt pätkä
+            // tai voit lisätä HTML:ään <input id="uusi-id"> jos haluat itse päättää sen.
+            const arvottuId = Math.random().toString(36).substring(2, 7);
 
-    try {
-        const res = await fetch('https://soro.la', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }, // Kerrotaan että lähetetään JSONia
-            body: JSON.stringify({ id: idValue, url: urlValue }) // Muutetaan JSONiksi
+            const btn = lomake.querySelector('button');
+            const alkupTeksti = btn.innerText;
+            btn.innerText = "Käsitellään...";
+
+            try {
+                const res = await fetch('https://soro.la', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        id: arvottuId, 
+                        url: pitkaUrl 
+                    })
+                });
+
+                if (res.ok) {
+                    lomake.style.display = 'none';
+                    tulosAlue.style.display = 'block';
+                    urlInput.value = "soro.la/" + arvottuId;
+                } else {
+                    const errorMsg = await res.json();
+                    alert("Virhe: " + (errorMsg.error || "Tallennus epäonnistui"));
+                }
+            } catch (err) {
+                alert("Yhteysvirhe palvelimeen. Tarkista Workerin CORS-asetukset.");
+            } finally {
+                btn.innerText = alkupTeksti;
+            }
         });
-
-        if (res.ok) {
-            // Worker palauttaa nyt JSONin {success: true}, mutta tarvitset sen ID:n
-            // Joten käytetään suoraan sitä idValuea jonka annoit
-            lomake.style.display = 'none';
-            tulosAlue.style.display = 'block';
-            urlInput.value = "soro.la/" + idValue;
-        } else {
-            alert("Virhe tallennuksessa.");
-        }
-    } catch (e) { 
-        alert("Yhteysvirhe!"); 
     }
-    btn.innerText = "Lyhennä linkki";
+
+    // Kopiointi-nappi
+    if (kopioiBtn) {
+        kopioiBtn.addEventListener('click', () => {
+            urlInput.select();
+            navigator.clipboard.writeText(urlInput.value);
+            const teksti = kopioiBtn.innerText;
+            kopioiBtn.innerText = "Kopioitu!";
+            setTimeout(() => { kopioiBtn.innerText = teksti; }, 2000);
+        });
+    }
+
+    // Uusi linkki -nappi
+    if (uusiBtn) {
+        uusiBtn.addEventListener('click', () => {
+            tulosAlue.style.display = 'none';
+            lomake.style.display = 'block';
+            lomake.reset();
+        });
+    }
 });
