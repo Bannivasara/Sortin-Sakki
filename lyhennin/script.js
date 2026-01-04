@@ -1,45 +1,30 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const lomake = document.getElementById('lyhennin-lomake');
-    const tulosAlue = document.getElementById('tulos-alue');
-    const urlInput = document.getElementById('lyhennetty-url');
-    const kopioiBtn = document.getElementById('kopioi-btn');
-    const uusiBtn = document.getElementById('uusi-btn');
+// 1. Linkin luominen
+lomake.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = lomake.querySelector('button');
+    const idValue = document.getElementById('uusi-id').value; // Varmista että ID-kentän ID on tämä
+    const urlValue = document.getElementById('uusi-url').value; // Varmista että URL-kentän ID on tämä
 
-    // 1. Linkin luominen
-    lomake.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = lomake.querySelector('button');
-        btn.innerText = "Käsitellään...";
+    btn.innerText = "Käsitellään...";
 
-        try {
-            const res = await fetch('https://soro.la', {
-                method: 'POST',
-                body: new FormData(lomake)
-            });
+    try {
+        const res = await fetch('https://soro.la', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }, // Kerrotaan että lähetetään JSONia
+            body: JSON.stringify({ id: idValue, url: urlValue }) // Muutetaan JSONiksi
+        });
 
-            if (res.ok) {
-                const id = await res.text();
-                lomake.style.display = 'none'; // Piilota vanha
-                tulosAlue.style.display = 'block'; // Näytä uusi
-                urlInput.value = "soro.la/" + id;
-            }
-        } catch (e) { alert("Virhe!"); }
-        btn.innerText = "Lyhennä linkki";
-    });
-
-    // 2. Kopiointi
-    kopioiBtn.addEventListener('click', () => {
-        urlInput.select();
-        navigator.clipboard.writeText(urlInput.value);
-        const alkupTeksti = kopioiBtn.innerText;
-        kopioiBtn.innerText = "Kopioitu!";
-        setTimeout(() => { kopioiBtn.innerText = alkupTeksti; }, 2000);
-    });
-
-    // 3. Tee uusi
-    uusiBtn.addEventListener('click', () => {
-        tulosAlue.style.display = 'none';
-        lomake.style.display = 'block';
-        lomake.reset();
-    });
+        if (res.ok) {
+            // Worker palauttaa nyt JSONin {success: true}, mutta tarvitset sen ID:n
+            // Joten käytetään suoraan sitä idValuea jonka annoit
+            lomake.style.display = 'none';
+            tulosAlue.style.display = 'block';
+            urlInput.value = "soro.la/" + idValue;
+        } else {
+            alert("Virhe tallennuksessa.");
+        }
+    } catch (e) { 
+        alert("Yhteysvirhe!"); 
+    }
+    btn.innerText = "Lyhennä linkki";
 });
