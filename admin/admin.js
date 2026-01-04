@@ -24,6 +24,7 @@ async function kirjauduSisaan() {
             document.getElementById('admin-content').style.display = 'block';
             console.log("Kirjautuminen onnistui!");
             haeLinkit();
+            paivitaKuvaLista(); // Lisätty tämä, jotta kuvat latautuvat heti
         } else {
             alert("Pääsy evätty!");
         }
@@ -96,13 +97,12 @@ async function poistaLinkki(id) {
         });
         
         if (response.ok) {
-            haeLinkit(); // Päivitetään lista
+            haeLinkit();
         } else {
             alert("Poisto epäonnistui.");
         }
     } catch (error) {
         console.error("Virhe poistaessa:", error);
-        alert("Yhteysvirhe poistettaessa.");
     }
 }
 
@@ -110,8 +110,14 @@ async function lisaaKuva() {
     const url = document.getElementById('kuva-url').value;
     const kuvaus = document.getElementById('kuva-kuvaus').value;
     
+    if (!url) {
+        alert("Lisää kuvan URL!");
+        return;
+    }
+    
     await fetch('https://soro.la/api/lisaa-kuva', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url, kuvaus })
     });
     
@@ -122,6 +128,8 @@ async function lisaaKuva() {
 
 async function paivitaKuvaLista() {
     const listaAlue = document.getElementById('kuva-hallinta-alue');
+    if (!listaAlue) return;
+
     try {
         const response = await fetch('https://soro.la/api/kuvat');
         const kuvat = await response.json();
