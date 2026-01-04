@@ -13,56 +13,51 @@
 		<h1 class="sorola">Sorolan Huumorikuvat</h1>
 		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
 	</div>
-    <div id="kuva-grid" class="grid"></div>
-    <div style="text-align: center; margin: 20px;">
-        <button id="lataa-lisaa" class="nappula" style="display: none;">Lataa lisää kuvia...</button>
-    </div>
-
-    <script>
+	<div id="kuva-grid" class="grid"></div>
+    <div id="lataus-vahti"></div> <script>
         let kaikkiKuvat = [];
         let naytettyja = 0;
-        const perSivu = 12; // Näytetään 12 kuvaa kerrallaan
+        const erakoko = 15;
 
-        async function alustaGalleria() {
+        async function alusta() {
             try {
-                // Haetaan JSON-tiedosto, joka on samassa kansiossa GitHubissa
-                const res = await fetch('https://sorola.fi/huumorikuvat/kuvat.json')
+                // Lisätään timestamp, jotta selain ei käytä vanhaa välimuistia (estää .la-virheet)
+                const res = await fetch('kuvat.json?v=' + Date.now());
                 kaikkiKuvat = await res.json();
                 
-                if (kaikkiKuvat.length > 0) {
-                    lataaLisaa();
-                    document.getElementById('lataa-lisaa').style.display = 'inline-block';
-                }
+                lataaEra(); // Ladataan ekat 15
+
+                // IntersectionObserver hoitaa dynaamisen latauksen
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && naytettyja < kaikkiKuvat.length) {
+                        lataaEra();
+                    }
+                }, { threshold: 0.1 });
+
+                observer.observe(document.getElementById('lataus-vahti'));
             } catch (e) {
-                console.error("Virhe ladattaessa kuvat.json -tiedostoa", e);
+                console.error("Virhe: Varmista että olet sorola.fi osoitteessa!", e);
             }
         }
 
-        function lataaLisaa() {
+        function lataaEra() {
             const grid = document.getElementById('kuva-grid');
-            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + perSivu);
+            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
             
-            const uusiSisalto = seuraavat.map(k => `
-                <div class="huumori-kortti">
-                    <img src="${k.u}" alt="Huumorikuva" loading="lazy">
-                    ${k.t ? `<div class="kuvateksti">${k.t}</div>` : ''}
-                </div>
-            `).join('');
-
-            grid.innerHTML += uusiSisalto;
-            naytettyja += perSivu;
-
-            if (naytettyja >= kaikkiKuvat.length) {
-                document.getElementById('lataa-lisaa').style.display = 'none';
-            }
+            seuraavat.forEach(kuvaNimi => {
+                const kortti = document.createElement('div');
+                kortti.className = 'huumori-kortti';
+                // loading="lazy" on kriittinen suorituskyvylle
+                kortti.innerHTML = `<img src="kuvat/${kuvaNimi}" loading="lazy" alt="Huumori">`;
+                grid.appendChild(kortti);
+            });
+            
+            naytettyja += erakoko;
         }
 
-        document.getElementById('lataa-lisaa').addEventListener('click', lataaLisaa);
-        
-        // Käynnistetään galleria
-        alustaGalleria();
+        alusta();
     </script>
-	<script src="../tyylit/teemat.js"></script>
+    <script src="../tyylit/teemat.js"></script>
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
