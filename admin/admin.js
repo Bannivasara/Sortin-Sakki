@@ -24,7 +24,7 @@ async function kirjauduSisaan() {
             document.getElementById('admin-content').style.display = 'block';
             console.log("Kirjautuminen onnistui!");
             haeLinkit();
-            paivitaKuvaLista(); // Lisätty tämä, jotta kuvat latautuvat heti
+            paivitaKuvaLista(); // Lataa kuvat heti kirjautumisen jälkeen
         } else {
             alert("Pääsy evätty!");
         }
@@ -103,6 +103,7 @@ async function poistaLinkki(id) {
         }
     } catch (error) {
         console.error("Virhe poistaessa:", error);
+        alert("Yhteysvirhe poistettaessa.");
     }
 }
 
@@ -141,20 +142,3 @@ async function paivitaKuvaLista() {
                     <img src="${k.kuva_url}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
                     <div style="flex-grow:1;">
                         <div style="color:white; font-size:12px;">${k.kuvaus || 'Ei kuvausta'}</div>
-                    </div>
-                    <button onclick="poistaKuva(${k.id})" class="adminappula" style="background:#d93025; padding:5px;">Poista</button>
-                </li>
-            `;
-        });
-        html += '</ul>';
-        listaAlue.innerHTML = html;
-    } catch (e) {
-        console.error("Kuvien haku epäonnistui", e);
-    }
-}
-
-async function poistaKuva(id) {
-    if(!confirm("Poistetaanko kuva?")) return;
-    await fetch(`https://soro.la/api/poista-kuva?id=${id}`, { method: 'DELETE' });
-    paivitaKuvaLista();
-}
