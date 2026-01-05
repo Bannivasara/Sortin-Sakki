@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorolan huumorit</title>
     <link rel="stylesheet" type="text/css" href="../tyylit/style.css">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
     <link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
 </head>
 <body>
@@ -16,64 +15,10 @@
     
     <p class="saate">Lisäilen tänne hauskoja kuvia, joita olen vuosien aikana löytänyt. Kaikkea ei tarvitse tajuta eikä varsinkaan ottaa vakavasti. :)</p>
 
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="" alt="Suurennos">
-    </div>
-
-    <div id="kuva-grid" class="grid"></div>
-    <div id="lataus-vahti"></div>
-
-    <script>
-        let kaikkiKuvat = [];
-        let naytettyja = 0;
-        const erakoko = 15;
-
-        async function alusta() {
-            try {
-                const res = await fetch('kuvat.json?v=' + Date.now());
-                if (!res.ok) throw new Error('JSON-tiedostoa ei löytynyt');
-                kaikkiKuvat = await res.json();
-                
-                lataaEra();
-
-                const observer = new IntersectionObserver((entries) => {
-                    if (entries[0].isIntersecting && naytettyja < kaikkiKuvat.length) {
-                        lataaEra();
-                    }
-                }, { threshold: 0.1 });
-
-                observer.observe(document.getElementById('lataus-vahti'));
-            } catch (e) {
-                console.error("Virhe:", e);
-            }
-        }
-
-        function lataaEra() {
-            const grid = document.getElementById('kuva-grid');
-            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
-            
-            seuraavat.forEach(kuvaNimi => {
-                const kortti = document.createElement('div');
-                kortti.className = 'huumori-kortti';
-                
-                const img = document.createElement('img');
-                img.src = `kuvat/${kuvaNimi}`;
-                img.loading = "lazy";
-                
-                img.onclick = () => {
-                    document.getElementById('lightbox-img').src = img.src;
-                    document.getElementById('lightbox').style.display = 'flex';
-                };
-                
-                kortti.appendChild(img);
-                grid.appendChild(kortti);
-            });
-            
-            naytettyja += erakoko;
-        }
-
-        alusta();
-    </script>
+    <!-- Elfsight Photo Gallery | Untitled Photo Gallery -->
+	<script src="https://elfsightcdn.com/platform.js" async></script>
+		<div class="elfsight-app-f589fa57-ba2c-48ba-814e-374e346840e5" data-elfsight-app-lazy>
+	</div>
     <script src="../tyylit/teemat.js"></script>
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
