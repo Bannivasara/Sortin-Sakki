@@ -23,68 +23,57 @@
     <div id="kuva-grid" class="grid"></div>
     <div id="lataus-vahti"></div>
 
-<script>
-    let kaikkiKuvat = [];
-    let naytettyja = 0;
-    const erakoko = 15;
+    <script>
+        let kaikkiKuvat = [];
+        let naytettyja = 0;
+        const erakoko = 15;
 
-    async function alusta() {
-        try {
-            const res = await fetch('kuvat.json?v=' + Date.now());
-            if (!res.ok) throw new Error('JSON-tiedostoa ei löytynyt');
-            
-            let raakaLista = await res.json();
+        async function alusta() {
+            try {
+                const res = await fetch('kuvat.json?v=' + Date.now());
+                if (!res.ok) throw new Error('JSON-tiedostoa ei löytynyt');
+                kaikkiKuvat = await res.json();
+                
+                lataaEra();
 
-            // Lajitellaan numeron perusteella (huumori_1.jpg, huumori_2.jpg...)
-            kaikkiKuvat = raakaLista.sort((a, b) => {
-                const numA = parseInt(a.match(/\d+/) || 0);
-                const numB = parseInt(b.match(/\d+/) || 0);
-                return numA - numB; 
-            });
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && naytettyja < kaikkiKuvat.length) {
+                        lataaEra();
+                    }
+                }, { threshold: 0.1 });
 
-            lataaEra();
-
-            // Tarkkailee milloin tullaan sivun loppuun
-            const observer = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && naytettyja < kaikkiKuvat.length) {
-                    lataaEra();
-                }
-            }, { threshold: 0.1 });
-
-            observer.observe(document.getElementById('lataus-vahti'));
-        } catch (e) {
-            console.error("Virhe:", e);
+                observer.observe(document.getElementById('lataus-vahti'));
+            } catch (e) {
+                console.error("Virhe:", e);
+            }
         }
-    }
 
-    function lataaEra() {
-        const grid = document.getElementById('kuva-grid');
-        const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
-        
-        seuraavat.forEach(kuvaNimi => {
-            const kortti = document.createElement('div');
-            kortti.className = 'huumori-kortti';
+        function lataaEra() {
+            const grid = document.getElementById('kuva-grid');
+            const seuraavat = kaikkiKuvat.slice(naytettyja, naytettyja + erakoko);
             
-            const img = document.createElement('img');
-            img.src = `kuvat/${kuvaNimi}`;
-            img.loading = "lazy";
-            img.alt = "Huumori";
+            seuraavat.forEach(kuvaNimi => {
+                const kortti = document.createElement('div');
+                kortti.className = 'huumori-kortti';
+                
+                const img = document.createElement('img');
+                img.src = `kuvat/${kuvaNimi}`;
+                img.loading = "lazy";
+                
+                img.onclick = () => {
+                    document.getElementById('lightbox-img').src = img.src;
+                    document.getElementById('lightbox').style.display = 'flex';
+                };
+                
+                kortti.appendChild(img);
+                grid.appendChild(kortti);
+            });
             
-            // Avaa lightboxin
-            img.onclick = () => {
-                document.getElementById('lightbox-img').src = img.src;
-                document.getElementById('lightbox').style.display = 'flex';
-            };
-            
-            kortti.appendChild(img);
-            grid.appendChild(kortti);
-        });
-        
-        naytettyja += erakoko;
-    }
+            naytettyja += erakoko;
+        }
 
-    alusta();
-</script>
+        alusta();
+    </script>
     <script src="../tyylit/teemat.js"></script>
 	<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "15c457e00da24cef9e3ca960ddde17c4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
