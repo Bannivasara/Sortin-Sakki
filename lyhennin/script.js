@@ -9,12 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         lomake.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Haetaan se pitkä URL-osoite input-kentästä nimen perusteella
             const pitkaUrl = lomake.querySelector('input[name="url"]').value;
-            
-            // Koska HTML:ssä ei ole kenttää lyhenteelle (id), arvotaan tässä lyhyt pätkä
-            // tai voit lisätä HTML:ään <input id="uusi-id"> jos haluat itse päättää sen.
-            const arvottuId = Math.random().toString(36).substring(2, 7);
+            const omaTunniste = document.getElementById('tunniste').value; // Uusi kenttä
+            const salasanaAvain = document.getElementById('avain').value; // Uusi kenttä
 
             const btn = lomake.querySelector('button');
             const alkupTeksti = btn.innerText;
@@ -25,39 +22,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        id: arvottuId, 
-                        url: pitkaUrl 
+                        id: omaTunniste, // Lähetetään tyhjänä, jos ei täytetty
+                        url: pitkaUrl,
+                        avain: salasanaAvain 
                     })
                 });
+
+                const data = await res.json(); // Luetaan vastaus Workerilta
 
                 if (res.ok) {
                     lomake.style.display = 'none';
                     tulosAlue.style.display = 'block';
-                    urlInput.value = "soro.la/" + arvottuId;
+                    // Worker palauttaa joko arvotun tai oman tunnisteen
+                    urlInput.value = "soro.la/" + data.shortId; 
                 } else {
-                    const errorMsg = await res.json();
-                    alert("Virhe: " + (errorMsg.error || "Tallennus epäonnistui"));
+                    alert("Virhe: " + (data.error || "Tarkista salasana tai tunniste."));
                 }
             } catch (err) {
-                alert("Yhteysvirhe palvelimeen. Tarkista Workerin CORS-asetukset.");
+                alert("Yhteysvirhe palvelimeen.");
             } finally {
                 btn.innerText = alkupTeksti;
             }
         });
     }
 
-    // Kopiointi-nappi
+    // Kopiointi ja uusi linkki pysyvät samoina kuin alkuperäisessä koodissasi
     if (kopioiBtn) {
         kopioiBtn.addEventListener('click', () => {
             urlInput.select();
             navigator.clipboard.writeText(urlInput.value);
-            const teksti = kopioiBtn.innerText;
             kopioiBtn.innerText = "Kopioitu!";
-            setTimeout(() => { kopioiBtn.innerText = teksti; }, 2000);
+            setTimeout(() => { kopioiBtn.innerText = "Kopioi linkki"; }, 2000);
         });
     }
 
-    // Uusi linkki -nappi
     if (uusiBtn) {
         uusiBtn.addEventListener('click', () => {
             tulosAlue.style.display = 'none';
