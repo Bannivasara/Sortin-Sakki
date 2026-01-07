@@ -106,21 +106,34 @@
 	font-size: 30px;
 	font-family: Open Sans, sans-serif;
 	margin-bottom: 20px;
-	min-height: 3em;
+	min-height: 1.5em;
 }
 
 .paasivu {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     gap: 40px;
     padding: 20px;
     box-sizing: border-box;
+}
+
+.laatikot {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch;
+	width: 100%;
+	max-width: 800px;
+	gap: 15px;
+	margin: 0 auto;
+	padding: 20px;
+	box-sizing: border-box;
 }
 
 .palsta {
