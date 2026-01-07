@@ -194,6 +194,8 @@
 	  flex-direction: column;
 	  align-items: center;
 	  gap: 15px;
+   width: 100%;
+   max-width: 300px;
 }
 
 .qr {
