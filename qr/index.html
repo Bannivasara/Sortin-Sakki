@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Sorolan QR-koodit</title>
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../tyylit/style.css">
   <link rel="icon" type="image/svg+xml" href="../tyylit/fav.ico">
   <link rel="manifest" href="manifest.json">
@@ -19,15 +19,15 @@
 	<div class="paasivu">
 		<div class="palsta" style="width: auto;">
 		<h2 class="palstatekstit">Luo QR-koodi</h2>
-		 <a href=../ class=nappula1 style="margin-bottom: 20px;">Takaisin pääsivulle</a>
-    <select id="qr-tyyppi" style="padding: 15px; width: 100%; max-width: 300px; margin-bottom: 15px;">
+		<a href=../ class=nappula1 style="margin-bottom: 20px;">Takaisin pääsivulle</a>
+    <select id="qr-tyyppi" class="syote">
 		<option value="text">Teksti</option>
         <option value="url">Nettilinkki</option>
         <option value="wifi">Wi-Fi verkko</option>
         <option value="vcard">Käyntikortti</option>
     </select>
 
-    <div id="kentat" style="width: 100%; max-width: 300px; border-radius: 15px;">
+    <div id="kentat">
         <input type="text" id="syote1" class="qr" placeholder="Kirjoita teksti">
         <input type="text" id="syote2" class="qr" style="display: none;">
     	<input type="text" id="syote3" class="qr" style="display: none;">
