@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerText = "Käsitellään...";
 
             try {
-                const res = await fetch('https://soro.la', {
+                const res = await fetch('https://soro.la/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
