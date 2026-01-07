@@ -210,14 +210,6 @@ body {
 	background-color: #E0DDDA;
 }
 
-body {
-    background-image: url('waves.svg');
-    background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
-	background-color: #E0DDDA;
-}
-
 body.yoteema {
     background-image: url('wavesnight.svg');
     background-color: #0b1120;
