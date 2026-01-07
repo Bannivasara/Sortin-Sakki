@@ -159,7 +159,6 @@
 #lyhennetty-url {
     display: block !important;
     width: 100% !important;
-	min-width: 280px !important;
     max-width: 300px !important;
     margin: 0 auto 20px auto !important;
     box-sizing: border-box !important;
