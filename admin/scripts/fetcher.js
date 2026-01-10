@@ -8,13 +8,16 @@ window.lataaTiedot = async function(divId, taulu) {
         html += `<button class="nappula" onclick="naytaLisays('${taulu}')">+ Lisää uusi</button><ul style="list-style:none; padding:0;">`;
         if (Array.isArray(data)) {
             data.forEach(rivi => {
+                // Käytetään 'id' tai 'avain' riippuen taulusta
                 let teksti = rivi.id || rivi.avain || "Tieto";
                 html += `<li style="display:flex; justify-content:space-between; border-bottom:1px solid #ff4500; padding:10px; color:white;">
                     <span>${teksti}</span>
-                    <button onclick="poistaTieto('${taulu}', '${rivi.id || rivi.avain}')" style="background:red; color:white; border:none; padding:2px 8px; border-radius:3px;">X</button>
+                    <button onclick="poistaTieto('${taulu}', '${rivi.id || rivi.avain}')" style="background:red; color:white; border:none; padding:2px 8px; border-radius:3px; cursor:pointer;">X</button>
                 </li>`;
             });
         }
         kohde.innerHTML = html + '</ul>';
-    } catch (e) { kohde.innerHTML += `<p style="color:red;">Virhe: ${e.message}</p>`; }
+    } catch (e) { 
+        kohde.innerHTML += `<p style="color:red;">Virhe ladattaessa tietoja</p>`; 
+    }
 };
