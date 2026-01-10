@@ -1,7 +1,7 @@
-// admin.js - Globaalit määritykset
+// scripts/admin.js
 const API_URL = 'https://admin.bannivasara.workers.dev';
 
-// Funktio, joka päivittää kaikki palstat kerralla
+// Apufunktio, jolla päivitetään kaikki kolme palstaa yhdellä kertaa
 async function lataaKaikki() {
     if (typeof lataaTiedot === 'function') {
         lataaTiedot('linkit', 'Osoitteet');
