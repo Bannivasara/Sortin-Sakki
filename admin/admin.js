@@ -1,4 +1,5 @@
-const API_URL = '/api';
+// admin.js
+const API_URL = '/api'; // Käytetään suhteellista polkua samassa domainissa
 
 async function lataaKaikki() {
     if (typeof lataaTiedot === 'function') {
