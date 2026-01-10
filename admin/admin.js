@@ -2,23 +2,36 @@ const API_URL = 'https://admin.bannivasara.workers.dev';
 
 document.addEventListener('DOMContentLoaded', () => {
     const kirjautumisLomake = document.getElementById('kirjautuminen');
+    
     if (kirjautumisLomake) {
         kirjautumisLomake.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            e.preventDefault(); 
+            
             const formData = new FormData(kirjautumisLomake);
+            const credentials = Object.fromEntries(formData);
+
             try {
                 const r = await fetch(`${API_URL}/admin-kirjaudu`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(Object.fromEntries(formData))
+                    body: JSON.stringify(credentials)
                 });
+
+                const data = await r.json();
+
                 if (r.ok) {
                     document.getElementById('kirjautuminen').style.display = 'none';
-                    const osiot = ['linkit', 'linkkisalasanat', 'korttiyritykset'];
-                    osiot.forEach(id => document.getElementById(id).style.display = 'block');
+                    document.getElementById('linkit').style.display = 'block';
+                    document.getElementById('linkkisalasanat').style.display = 'block';
+                    document.getElementById('korttiyritykset').style.display = 'block';
                     lataaKaikki();
-                } else { alert("Kirjautuminen epäonnistui."); }
-            } catch (err) { console.error(err); }
+                } else {
+                    alert("Virhe: " + (data.error || "Kirjautuminen epäonnistui"));
+                }
+            } catch (virhe) {
+                console.error("Yhteysvirhe:", virhe);
+                alert("Palvelinvirhe (500). Tarkista Workerin lokit.");
+            }
         });
     }
 });
@@ -37,23 +50,22 @@ window.lataaTiedot = async function(divId, tauluNimi) {
 
         if (data.error) throw new Error(data.error);
 
-        let html = `<h2 class="palstatekstit">${kohde.querySelector('h2').innerText}</h2>`;
+        let otsikko = kohde.querySelector('h2').innerText;
+        let html = `<h2 class="palstatekstit">${otsikko}</h2>`;
         html += `<button class="nappula" onclick="naytaLisays('${tauluNimi}')">+ Lisää uusi</button><ul style="list-style:none; padding:0;">`;
         
-        if (Array.isArray(data)) {
-            data.forEach(rivi => {
-                let teksti = rivi.lyhyt || rivi.avain || rivi.username || "Tieto";
-                html += `
-                    <li style="display:flex; justify-content:space-between; border-bottom:1px solid #ff4500; padding:5px; color:white;">
-                        <span>${teksti}</span>
-                        <button onclick="poistaTieto('${tauluNimi}', '${rivi.id}')" style="background:red; color:white; border:none; cursor:pointer;">X</button>
-                    </li>`;
-            });
-        }
+        data.forEach(rivi => {
+            let teksti = rivi.lyhyt || rivi.avain || rivi.username || "Tieto";
+            html += `
+                <li style="display:flex; justify-content:space-between; border-bottom:1px solid #ff4500; padding:5px; color:white;">
+                    <span>${teksti}</span>
+                    <button onclick="poistaTieto('${tauluNimi}', '${rivi.id}')" style="background:red; color:white; border:none; cursor:pointer; padding:2px 8px;">X</button>
+                </li>`;
+        });
         kohde.innerHTML = html + '</ul>';
     } catch (e) {
-        console.error("Virhe palstalla " + tauluNimi, e);
-        kohde.innerHTML = `<h2 class="palstatekstit">${tauluNimi}</h2><p style="color:red;">Lataus epäonnistui.</p>`;
+        console.error(e);
+        kohde.innerHTML = `<h2 class="palstatekstit">${tauluNimi}</h2><p style="color:red;">Virhe: ${e.message}</p>`;
     }
 };
 
