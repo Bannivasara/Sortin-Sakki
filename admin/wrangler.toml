@@ -1,9 +1,0 @@
-[[d1_databases]]
-binding = "DB"
-database_name = "sorola-admin"
-database_id = "6dfff92c-26c1-40c6-ab7c-405880f336a6"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "sorola-db"
-database_id = "f669e3a2-c7b4-46ef-a7d0-a549739ca6ef"
