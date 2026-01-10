@@ -5,6 +5,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 .banner {
@@ -46,6 +47,7 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	background-color: #E0DDDA;
+	font-family: 'Open Sans', sans-serif;
 }
 
 body.yoteema {
@@ -72,5 +74,8 @@ body.yoteema {
     padding: 10px 15px;
     font-size: 14px;
     z-index: 1000;
+}
 
+input, button, select, textarea {
+    font-family: 'Open Sans', sans-serif;
 }
