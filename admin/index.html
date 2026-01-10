@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+	<meta charset="UTF-8">
+	<title>Sorolan Sakki - Admin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link id=normal-theme rel="stylesheet" type="text/css" href="tyylit/style.css">
+	<link rel="icon" type="image/svg+xml" href="tyylit/fav.ico">
+	<script src="script.js"></script>
+</head>
+<body>
+	<div class="banner">
+		<h1 class="sorola">Sorolan Ylläpito</h1>
+		<button id="teeman-vaihto" class="nappula" style="width: auto; padding: 10px 20px;">🌙 Vaihda teema</button>
+	</div>
+		<p class="saate">Sorolan Ylläpidon Palsta</p>
+		<div class="paasivu">
+			<div class=laatikot>
+				<form id="kirjautuminen" class="palsta">
+					<h2 class="palstatekstit">Kirjautuminen</h2>
+					<input type="text" class="syote" name="user" placeholder="Käyttäjänimi">
+					<input type="password" class="syote" name="password" placeholder="Salasana">
+					<input type="submit" value="Kirjaudu" class="nappula">
+				</form>
+				<div id="linkit" class="palsta" style="display: none;">
+					<h2 class="palstatekstit">Linkit</h2>
+					
+				</div>
+				<div id="linkkisalasanat" class="palsta" style="display: none;">
+					<h2 class="palstatekstit">Linkinlyhentäjän salasanat</h2>
+					
+				</div>
+				<div id="korttiyritykset" class="palsta" style="display: none;">
+					<h2 class="palstatekstit">Korttigeneraattorin yritykset</h2>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="tyylit/teemat.js"></script>
+</body>
+</html>
