@@ -8,13 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault(); 
             
             const formData = new FormData(kirjautumisLomake);
-            const credentials = Object.fromEntries(formData);
+            // Haetaan kentät 'user' ja 'password' (index.html:n mukaisesti)
+            const u = formData.get('user'); 
+            const p = formData.get('password');
+
+            // Tarkistetaan etteivät ne ole tyhjiä ennen lähetystä
+            if (!u || !p) {
+                alert("Täytä molemmat kentät!");
+                return;
+            }
 
             try {
                 const r = await fetch(`${API_URL}/admin-kirjaudu`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(credentials)
+                    body: JSON.stringify({ username: u, password: p })
                 });
 
                 const data = await r.json();
@@ -30,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (virhe) {
                 console.error("Yhteysvirhe:", virhe);
-                alert("Palvelinvirhe (500). Tarkista Workerin lokit.");
+                alert("Palvelinvirhe. Tarkista konsoli.");
             }
         });
     }
