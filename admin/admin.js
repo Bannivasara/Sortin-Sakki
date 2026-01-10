@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Lähetetään tiedot palvelimelle
-                const r = await fetch('https://admin.bannivasara.workers.dev/', {
+                const r = await fetch('https://admin.bannivasara.workers.dev/admin-kirjaudu', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: user, password: pass })
