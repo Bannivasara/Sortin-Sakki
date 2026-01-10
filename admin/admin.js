@@ -44,24 +44,34 @@ window.lataaTiedot = async function(divId, tauluNimi) {
     const kohde = document.getElementById(divId);
     try {
         const r = await fetch(`${API_URL}/admin-hae?taulu=${tauluNimi}`);
-        const data = await r.json();
+        const json = await r.json();
+
+        // Jos palvelin palautti virheen { error: "..." }
+        if (json.error) {
+            console.error("Palvelinvirhe taulussa " + tauluNimi + ":", json.error);
+            kohde.innerHTML = `<h2 class="palstatekstit">${tauluNimi}</h2><p style="color:red;">Virhe: ${json.error}</p>`;
+            return;
+        }
 
         let html = `<h2 class="palstatekstit">${kohde.querySelector('h2').innerText}</h2>`;
         html += `<button class="nappula" onclick="naytaLisays('${tauluNimi}')">+ Lisää uusi</button><ul style="list-style:none; padding:10px 0;">`;
         
-        data.forEach(rivi => {
-            // TÄMÄ KOHTA ETSII OIKEAN SARAKKEEN
-            let naytettava = rivi.lyhyt || rivi.avain || rivi.username || rivi.id || "Tieto";
-            html += `
-                <li style="display:flex; justify-content:space-between; border-bottom:1px solid #ff4500; padding:5px; color:white;">
-                    <span>${naytettava}</span>
-                    <button onclick="poistaTieto('${tauluNimi}', '${rivi.id}')" style="background:red; color:white; border:none; cursor:pointer; padding: 2px 8px;">X</button>
-                </li>`;
-        });
+        // Varmistetaan että json on lista
+        if (Array.isArray(json)) {
+            json.forEach(rivi => {
+                let teksti = rivi.lyhyt || rivi.avain || rivi.username || "Tieto";
+                html += `
+                    <li style="display:flex; justify-content:space-between; border-bottom:1px solid #ff4500; padding:5px; color:white;">
+                        <span>${teksti}</span>
+                        <button onclick="poistaTieto('${tauluNimi}', '${rivi.id}')" style="background:red; color:white; border:none; cursor:pointer; padding:2px 8px;">X</button>
+                    </li>`;
+            });
+        }
+        
         html += '</ul>';
         kohde.innerHTML = html;
-    } catch (e) { 
-        console.error("Latausvirhe (" + tauluNimi + "):", e); 
+    } catch (e) {
+        console.error("Latausvirhe:", e);
     }
 };
 
